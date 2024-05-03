@@ -5,6 +5,7 @@ from fastapi import Body
 from pydantic import BaseModel
 from typing import List
 
+
 class Error(jsonrpc.BaseError):
     CODE = 5000
     MESSAGE = 'Server Error'
