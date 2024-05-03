@@ -1,3 +1,12 @@
+from fastapi import FastAPI, Request
+from datetime import date
+from random import randint
+from pybase64 import b64decode
+from os import listdir
+from os.path import isfile, join
+from PydanticModels import *
+from dotenv import load_dotenv
+
 import io
 import numpy as np
 import json
@@ -8,18 +17,12 @@ import os
 import re
 import shutil
 
-from fastapi import FastAPI, Request
-from datetime import date
-from random import randint
-from pybase64 import b64decode
-from os import listdir
-from os.path import isfile, join
-from PydanticModels import *
+load_dotenv()
 
+lhost = os.getenv('HOST_IP')
 
 app = jsonrpc.API()
 api_v1 = jsonrpc.Entrypoint('/api/v1/jsonrpc')
-
 
 async def remove_files_and_folders():
     items_to_remove = [
@@ -134,4 +137,4 @@ app.bind_entrypoint(api_v1)
 
 if __name__ == '__main__':
 
-    uvicorn.run(app, host='localhost', port=8001, access_log=True)
+    uvicorn.run(app, host=lhost, port=8001, access_log=True)

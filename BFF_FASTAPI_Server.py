@@ -9,16 +9,19 @@ from bokeh.embed import components, json_item
 from fastapi.responses import HTMLResponse
 from pybase64 import b64decode
 from PydanticModels import *
+from dotenv import load_dotenv
 
 import json
+import os
 import io
 import uvicorn
 import requests
 
+load_dotenv()
 
 app = FastAPI()
 
-lhost = '192.168.152.35'
+lhost = os.getenv('HOST_IP')
 
 file_input = FileInput(name='file_input_bokeh')
 button_run = Button(label='Run', button_type='success')
