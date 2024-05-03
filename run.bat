@@ -4,12 +4,10 @@ echo Сложили локальные изменения.
 git fetch
 git pull
 echo Стянули обновления.
-
 IF NOT EXIST .env (
-    echo HOST_IP='127.0.0.1' > .env
+    echo HOST_IP='172.16.230.88' > .env
     echo Создали .env файл.
 )
-
 start python JSON_RPC_Server.py
 echo Запустили JSON_RPC_Server.py
 start python BFF_FASTAPI_Server.py
