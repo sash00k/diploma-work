@@ -137,7 +137,7 @@ def decode_data(in_dat):
 
 def call_rpc(method: str, rpc_params: BaseModel):
 
-    url = 'http://localhost:8001/api/v1/jsonrpc'
+    url = f'http://{lhost}:8001/api/v1/jsonrpc'
     headers = {'content-type': 'application/json'}
 
     loc_json_rpc = {'jsonrpc': '2.0',
