@@ -5,7 +5,7 @@ from pybase64 import b64decode
 from os import listdir
 from os.path import isfile, join
 from PydanticModels import *
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
 import io
 import numpy as np
@@ -17,7 +17,7 @@ import os
 import re
 import shutil
 
-load_dotenv()
+load_dotenv(find_dotenv(), override=True)
 
 lhost = os.getenv('HOST_IP')
 

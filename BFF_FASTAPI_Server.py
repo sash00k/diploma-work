@@ -9,7 +9,7 @@ from bokeh.embed import components, json_item
 from fastapi.responses import HTMLResponse
 from pybase64 import b64decode
 from PydanticModels import *
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
 import json
 import os
@@ -17,7 +17,7 @@ import io
 import uvicorn
 import requests
 
-load_dotenv()
+load_dotenv(find_dotenv(), override=True)
 
 app = FastAPI()
 
