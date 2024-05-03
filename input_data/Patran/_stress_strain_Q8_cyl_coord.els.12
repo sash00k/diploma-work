@@ -1,0 +1,9 @@
+                                                 Pioner_cut_stresses_strains_eng
+   20
+  Stresses/strains_eng tensors; stresses/strains_eng scalars - in central points
+                                                 Data in cylindrical coordinates
+       1       4
+-0.469703E+05 0.469703E+05 0.000000E+00-0.328079E+06 0.000000E+00 0.000000E+00
+ 0.480000E+00-0.184800E+02 0.000000E+00 0.720000E+00 0.000000E+00 0.000000E+00
+-0.469703E+05 0.469703E+05 0.000000E+00-0.328079E+06 0.480000E+00-0.184800E+02
+ 0.000000E+00 0.720000E+00

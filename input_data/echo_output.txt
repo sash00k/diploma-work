@@ -1,0 +1,1372 @@
+2/d simple shear, hypoelastic material based on ZJ stress rate, mid-point Eul prescribed displ. 19-10-2023                                                      
+
+
+ c o n t r o l  i n f o r m a t i o n                  
+
+     number of nodal points  . . . . . . . . . . (numnp)   =        4
+
+     master x-translation code . . . . . . . . . (idof(1)) =    0
+
+     master y-translation code . . . . . . . . . (idof(2)) =    0
+
+     master pore pressure code . . . . . . . . . (idof(3)) =    1
+
+     master temperature   code . . . . . . . . . (idof(4)) =    1
+
+     master y-rotation    code . . . . . . . . . (idof(5)) =    1
+
+     master z-rotation    code . . . . . . . . . (idof(6)) =    1
+
+     number of linear element groups . . . . . . (negl)    =    0
+
+     number of nonlinear element groups  . . . . (negnl)   =    1
+
+
+
+     time constraint option,                               (ivartime) =    0
+        eq.0, constant time step                                       
+        eq.1, variable time step                                       
+
+     maximum number of time steps                              (nste) =   20
+
+     time at solution start                                  (tstart) = 0.00000E+00
+
+     final time                                              (tfinal) = 0.10000E+01
+     total time            (T = tfinal - tstart, not input parameter) = 0.10000E+01
+
+     fraction of final time for initial time step (r_initial_delta_t) = 0.50000E-01
+     initial time step increment                                       
+       (dt_ini=r_initial_delta_t*tfinal, not input parameter)         = 0.50000E-01
+
+     fraction of final time for minimum time step (r_minimum_delta_t) = 0.50000E-01
+
+     minimum time step increment                                       
+       (dt_min=r_minimum_delta_t*tfinal, not input parameter)         = 0.50000E-01
+
+     fraction of final time for maximum time step (r_maximum_delta_t) = 0.50000E-01
+
+     maximum time step increment                                       
+       (dt_max=r_maximum_delta_t*tfinal, not input parameter)         = 0.50000E-01
+
+     number of time steps between reforming                 
+        effective stiffness matrix . . . . . . . (isref)   =    1
+
+     number of step size reduction permitted                
+        in each time step. . . . . . . . . . . . (nutmre)  =    0
+
+     number of time steps between                           
+        equilibrium iterations . . . . . . . . . (iequit)  =    1
+
+     maximum number of equilibrium                          
+        iterations permitted . . . . . . . . . . (itemax)  =   15
+
+     optimal number of iterations per time step. (iteopt)  =    0
+        gt.0, only for variable time step or                
+              when load constraints used                    
+
+     displacement convergence tolerance.,4(2h .)(dtol)    = 0.10E-02
+
+     force convergence tolerance,8(2h .),12h (ftol)       = 0.10E-02
+
+     energy convergence tolerance.,7(2h .),12h (etol)     = 0.10E-02
+
+
+
+     temperature code  . . . . . . . . . . . . . (itempf)  =    0
+        eq.0, no thermal effects                            
+        eq.n, temperature-time history is defined           
+              by load curve  n                              
+
+
+
+
+ d i s p / v e l / a c c   p r i n t o u t   c o d e   
+
+     number of blocks of nodal printout  . . . . . . (npb) =    1
+
+     Patran writing code . . . . . . . . . . . . (iPatran) =    1
+        eq.0, no writing Patran input files                 
+        eq.1, writing Patran input files                    
+
+
+
+     block  1
+
+        first node of this block . . . . . . (ipnode(1,1)) =        1
+
+        last node of this block  . . . . . . (ipnode(2,1)) =        4
+
+
+ n o d a l   p o i n t   d a t a
+
+ input nodal data
+
+              node    bound. cond.       nodal point
+            number (tr=translation)      coordinates
+
+                 n x-tr y-tr p theta           x            y
+
+                 1   1   1      0.00000E+00  0.00000E+00
+                 2   0   1      0.00000E+00  0.10000E+01
+                 3   1   1      0.10000E+01  0.00000E+00
+                 4   0   1      0.10000E+01  0.10000E+01
+
+
+ generated nodal data
+
+   node    bound. cond.       nodal point
+  number (tr=translation)     coordinates
+
+     n     x-tr   y-tr    p    theta         x            y
+
+     1      1      1      1      1      0.00000E+00  0.00000E+00
+     2      0      1      1      1      0.00000E+00  0.10000E+01
+     3      1      1      1      1      0.10000E+01  0.00000E+00
+     4      0      1      1      1      0.10000E+01  0.10000E+01
+
+
+ equation numbers
+
+   node        degrees of freedom
+  number
+
+     n          x-trans  y-trans    p    theta  
+
+     1             0        0        0        0
+     2             1        0        0        0
+     3             0        0        0        0
+     4             2        0        0        0
+
+
+ t i m e   c u r v e s
+
+     number of time curves . . . . . . . . . . . . (nlcur) =    1
+        only for table function
+
+     max number of points in time curves . . . . . (nptm)  =    2
+
+     time function number   =    1
+     number of time points  =    2
+
+     time value       function
+
+   0.0000000E+00   0.0000000E+00
+   0.1000000E+01   0.1000000E+01
+
+     2/d continuum element face                  (npr2dc/n) 
+              pressure specifications        
+
+        (a) number of conservative 
+                        pressure loads . . . . . . . . . . =        0
+
+
+     prescribed nodal displacement                (ndisp)   =           2
+     prescribed nodal load                        (nload)  =           0
+
+
+
+ p r e s c r i b e d   n o d a l   d i s p l a c e m e n t s 
+
+    node  direction      time curve number      time curve factor   birth time  death time 
+       2      1                  1                  0.1000E+02      0.0000E+00  0.1500E+01
+       4      1                  1                  0.1000E+02      0.0000E+00  0.1500E+01
+
+
+ i n i t i a l  c o n d i t i o n s
+
+     initial stresses code                    (istress) =    0
+        eq.0, zero initial stresses
+        eq.1, initial stresses will be read
+              as material constants only for 2d elements models=1,2
+
+
+ e l e m e n t   g r o u p   d a t a 
+
+
+ e l e m e n t   g r o u p ........................... =    1    ( nonlinear )
+
+prestress from file code                    (prestress_flag) =    0
+        eq.0, no prestress from file
+        eq.1, prestress will be read from file
+              at integration points only for 2d elements models=41,42,43,44,45,46,47,48
+
+
+
+ e l e m e n t   d e f i n i t i o n
+
+
+ element type  . . . . . . . . . . . . .( npar(1) ) . . =    2
+     eq.2, 2/d solid elements
+
+ number of elements. . . . . . . . . . .( npar(2) ) . . =    1
+
+ type of nonlinear analysis. . . . . . .( npar(3) ) . . =    4
+     eq.1, material nonlinearity only
+     eq.2, total lagrangian formulation
+     eq.3, updated lagrangian formulation
+           with Truesdell stress rate
+     eq.4, updated lagrangian formulation
+           with Hill stress rate
+
+ element specification . . . . . . . . .( npar(4) ) . . =    2
+     eq.2, two-dimensional elements
+     eq.3, plane stress membrane elements
+
+ element subtype . . . . . . . . . . . .( npar(5) ) . . =    1
+     eq.0, axisymmetric elements
+     eq.1, plane strain elements
+     eq.2, plane stress elements
+
+ max number of nodes describing
+     any one element . . . . . . . . . .( npar(7) ) . . =    4
+
+ number of integration points in r-direction for
+     element stiffness generation. . . .( npar(10)) . . =    2
+
+ number of integration points in s-direction for
+     element stiffness generation. . . .( npar(11)) . . =    2
+
+
+ s t r e s s  o u t p u t  t a b l e s
+
+ number of stress output tables. . . . .( npar(13)) . . =    1
+
+  set                                    stress output tables
+ number                 ( eq.0, no output printed  /  eq.1, output printed )
+
+    1                     1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1
+
+
+ m a t e r i a l   d e f i n i t i o n
+
+ material model. . . . .( npar(15)) . . =   41
+      eq.1,  linear isotropic
+      eq.2,  linear isotropic with tensile
+             failure material model
+      eq.3,  isotropic thermo-elastic
+      eq.4,  Hencky’s isotropic hyperelastic material
+     eq.41,  isotropic hypoelastic material model
+             based on the Zaremba-Jaumann stress rate
+     eq.42,  isotropic hypoelastic material model
+             based on the Green-Naghdi stress rate
+     eq.43,  isotropic hypoelastic material model
+             based on the logarithmic stress rate
+     eq.44,  isotropic hypoelastic material model
+             based on the upper Oldroyd stress rate
+     eq.45,  isotropic hypoelastic material model
+             based on the lower Oldroyd stress rate
+     eq.46,  isotropic hypoelastic material model
+             based on the Hill stress rate
+     eq.47,  isotropic hypoelastic material model
+             based on the upper Truesdell stress rate
+     eq.48,  isotropic hypoelastic material model
+             based on the lower Truesdell stress rate
+
+ version =. . . . . . . ( npar(19)) . . =    1
+      eq.1,  the midpoint algorithm based on Rubistain-Atluri procedure
+      eq.2,  Eulerian version of the absolutely objective algorithm
+      eq.3,  Eulerian version of the strictly incrementally objective algorithm
+      eq.4,  Lagrangian version of the absolutely objective algorithm
+      eq.5,  Lagrangian version of the strictly incrementally objective algorithm
+
+ number of different sets of material
+ and thickness constants . . . . . . . .( npar(16)) . . =    1
+
+ number of material constants per set. .( npar(17)) . . =    2
+
+ dimension of storage array (wa) 
+ per integration point . . . . . . . . .( npar(18)) . . =    4
+
+
+ material constants set number =    1
+
+     element thickness ...............( thic ).. =  0.100000E+01
+     mass density ....................(  den ).. =  0.100000E+01
+     young*s modulus ............................( prop(1) ).. =  0.337000E+07
+     poisson*s ratio ............................( prop(2) ).. =  0.450000E+00
+     stress_init(1)  ............................( prop(3) ).. =
+
+
+ e l e m e n t  i n f o r m a t i o n
+
+         material  stress   gravity
+ element   set     output    load     reuse   beta       node 1    node 2    node 3    node 4
+  number  number    table     set    option
+
+     1       1        1        0        0     0.000           4         2         1         3
+
+
+ t o t a l   s y s t e m   d a t a                      
+
+
+     number of equations . . . . . . . . . . . . . .(neq)  =        2
+
+     number of matrix elements . . . . . . . . . . .(nwk)  =        3
+ ########################### t i m e   s t e p  =         1    s t a r t  ###########################
+  
+  
+ ########################### t i m e   s t e p  =         1    s t a r t  ###########################
+  
+ **** Properties of tangential stiffness matrix ****
+
+
+ number of negative pivots at preceding time step =    0
+ number of negative pivots at this time step =    0
+ determinant = 0.1000000E+01 *  0.93536E+50 **     0
+
+
+ p r i n t   o u t   f o r   t i m e   s t e p    1
+
+ current time = 0.5000000E-01, time step = 0.5000000E-01
+
+                     2 equilibrium iterations performed on this time step to reestablish equilibrium
+
+   SOLUTION
+
+      node   x-displacement  y-displacement   pore pressure     temperature      y-rotation      z-rotation
+
+         1    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         2    0.5000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         3    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         4    0.5000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+
+
+ s t r e s s   c a l c u l a t i o n s   f o r   e l e m e n t   g r o u p    1   (2/d continuum)
+                                                                                  (plane  strain)
+
+            effective          mean            p r i n c i p a l   v a l u e s                  p h y s i c a l   c o m p o n e n t s
+          stress/strain       normal        minimum     intermediate      maximum          11             22             33             12
+          (intensities)     intensity
+
+ element          1  point      1        integration pt. coordinate =  0.316987E+00   0.211325E+00
+  stress   0.100638E+07   0.000000E+00  -0.581034E+06   0.000000E+00   0.581034E+06   0.143750E+06  -0.143750E+06   0.000000E+00   0.562972E+06
+
+ element          1  point      2        integration pt. coordinate =  0.605662E+00   0.788675E+00
+  stress   0.100638E+07   0.000000E+00  -0.581034E+06   0.000000E+00   0.581034E+06   0.143750E+06  -0.143750E+06   0.000000E+00   0.562972E+06
+
+ element          1  point      3        integration pt. coordinate =  0.894338E+00   0.211325E+00
+  stress   0.100638E+07   0.000000E+00  -0.581034E+06   0.000000E+00   0.581034E+06   0.143750E+06  -0.143750E+06   0.000000E+00   0.562972E+06
+
+ element          1  point      4        integration pt. coordinate =  0.118301E+01   0.788675E+00
+  stress   0.100638E+07   0.000000E+00  -0.581034E+06   0.000000E+00   0.581034E+06   0.143750E+06  -0.143750E+06   0.000000E+00   0.562972E+06
+
+ element          1  point      0        central pt. coordinate =  0.750000E+00   0.500000E+00
+  stress   0.100638E+07   0.000000E+00  -0.581034E+06   0.000000E+00   0.581034E+06   0.143750E+06  -0.143750E+06   0.000000E+00   0.562972E+06
+  
+ *************************** t i m e   s t e p  =         1   f i n i s h ***************************
+ ########################### t i m e   s t e p  =         2    s t a r t  ###########################
+  
+  
+ ########################### t i m e   s t e p  =         2    s t a r t  ###########################
+  
+ **** Properties of tangential stiffness matrix ****
+
+
+ number of negative pivots at preceding time step =    0
+ number of negative pivots at this time step =    0
+ determinant = 0.1000000E+01 *  0.93536E+50 **     0
+
+
+ p r i n t   o u t   f o r   t i m e   s t e p    2
+
+ current time = 0.1000000E+00, time step = 0.5000000E-01
+
+                     2 equilibrium iterations performed on this time step to reestablish equilibrium
+
+   SOLUTION
+
+      node   x-displacement  y-displacement   pore pressure     temperature      y-rotation      z-rotation
+
+         1    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         2    0.1000000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         3    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         4    0.1000000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+
+
+ s t r e s s   c a l c u l a t i o n s   f o r   e l e m e n t   g r o u p    1   (2/d continuum)
+                                                                                  (plane  strain)
+
+            effective          mean            p r i n c i p a l   v a l u e s                  p h y s i c a l   c o m p o n e n t s
+          stress/strain       normal        minimum     intermediate      maximum          11             22             33             12
+          (intensities)     intensity
+
+ element          1  point      1        integration pt. coordinate =  0.422650E+00   0.211325E+00
+  stress   0.195019E+07   0.000000E+00  -0.112594E+07   0.000000E+00   0.112594E+07   0.539806E+06  -0.539806E+06   0.000000E+00   0.988108E+06
+
+ element          1  point      2        integration pt. coordinate =  0.100000E+01   0.788675E+00
+  stress   0.195019E+07   0.000000E+00  -0.112594E+07   0.000000E+00   0.112594E+07   0.539806E+06  -0.539806E+06   0.000000E+00   0.988108E+06
+
+ element          1  point      3        integration pt. coordinate =  0.100000E+01   0.211325E+00
+  stress   0.195019E+07   0.000000E+00  -0.112594E+07   0.000000E+00   0.112594E+07   0.539806E+06  -0.539806E+06   0.000000E+00   0.988108E+06
+
+ element          1  point      4        integration pt. coordinate =  0.157735E+01   0.788675E+00
+  stress   0.195019E+07   0.000000E+00  -0.112594E+07   0.000000E+00   0.112594E+07   0.539806E+06  -0.539806E+06   0.000000E+00   0.988108E+06
+
+ element          1  point      0        central pt. coordinate =  0.100000E+01   0.500000E+00
+  stress   0.195019E+07   0.000000E+00  -0.112594E+07   0.000000E+00   0.112594E+07   0.539806E+06  -0.539806E+06   0.000000E+00   0.988108E+06
+  
+ *************************** t i m e   s t e p  =         2   f i n i s h ***************************
+ ########################### t i m e   s t e p  =         3    s t a r t  ###########################
+  
+  
+ ########################### t i m e   s t e p  =         3    s t a r t  ###########################
+  
+ **** Properties of tangential stiffness matrix ****
+
+
+ number of negative pivots at preceding time step =    0
+ number of negative pivots at this time step =    0
+ determinant = 0.1000000E+01 *  0.93536E+50 **     0
+
+
+ p r i n t   o u t   f o r   t i m e   s t e p    3
+
+ current time = 0.1500000E+00, time step = 0.5000000E-01
+
+                     2 equilibrium iterations performed on this time step to reestablish equilibrium
+
+   SOLUTION
+
+      node   x-displacement  y-displacement   pore pressure     temperature      y-rotation      z-rotation
+
+         1    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         2    0.1500000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         3    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         4    0.1500000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+
+
+ s t r e s s   c a l c u l a t i o n s   f o r   e l e m e n t   g r o u p    1   (2/d continuum)
+                                                                                  (plane  strain)
+
+            effective          mean            p r i n c i p a l   v a l u e s                  p h y s i c a l   c o m p o n e n t s
+          stress/strain       normal        minimum     intermediate      maximum          11             22             33             12
+          (intensities)     intensity
+
+ element          1  point      1        integration pt. coordinate =  0.528312E+00   0.211325E+00
+  stress   0.277275E+07   0.000000E+00  -0.160085E+07   0.000000E+00   0.160085E+07   0.109120E+07  -0.109120E+07   0.000000E+00   0.117132E+07
+
+ element          1  point      2        integration pt. coordinate =  0.139434E+01   0.788675E+00
+  stress   0.277275E+07   0.000000E+00  -0.160085E+07   0.000000E+00   0.160085E+07   0.109120E+07  -0.109120E+07   0.000000E+00   0.117132E+07
+
+ element          1  point      3        integration pt. coordinate =  0.110566E+01   0.211325E+00
+  stress   0.277275E+07   0.000000E+00  -0.160085E+07   0.000000E+00   0.160085E+07   0.109120E+07  -0.109120E+07   0.000000E+00   0.117132E+07
+
+ element          1  point      4        integration pt. coordinate =  0.197169E+01   0.788675E+00
+  stress   0.277275E+07   0.000000E+00  -0.160085E+07   0.000000E+00   0.160085E+07   0.109120E+07  -0.109120E+07   0.000000E+00   0.117132E+07
+
+ element          1  point      0        central pt. coordinate =  0.125000E+01   0.500000E+00
+  stress   0.277275E+07   0.000000E+00  -0.160085E+07   0.000000E+00   0.160085E+07   0.109120E+07  -0.109120E+07   0.000000E+00   0.117132E+07
+  
+ *************************** t i m e   s t e p  =         3   f i n i s h ***************************
+ ########################### t i m e   s t e p  =         4    s t a r t  ###########################
+  
+  
+ ########################### t i m e   s t e p  =         4    s t a r t  ###########################
+  
+ **** Properties of tangential stiffness matrix ****
+
+
+ number of negative pivots at preceding time step =    0
+ number of negative pivots at this time step =    0
+ determinant = 0.1000000E+01 *  0.93536E+50 **     0
+
+
+ p r i n t   o u t   f o r   t i m e   s t e p    4
+
+ current time = 0.2000000E+00, time step = 0.5000000E-01
+
+                     2 equilibrium iterations performed on this time step to reestablish equilibrium
+
+   SOLUTION
+
+      node   x-displacement  y-displacement   pore pressure     temperature      y-rotation      z-rotation
+
+         1    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         2    0.2000000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         3    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         4    0.2000000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+
+
+ s t r e s s   c a l c u l a t i o n s   f o r   e l e m e n t   g r o u p    1   (2/d continuum)
+                                                                                  (plane  strain)
+
+            effective          mean            p r i n c i p a l   v a l u e s                  p h y s i c a l   c o m p o n e n t s
+          stress/strain       normal        minimum     intermediate      maximum          11             22             33             12
+          (intensities)     intensity
+
+ element          1  point      1        integration pt. coordinate =  0.633975E+00   0.211325E+00
+  stress   0.342291E+07   0.000000E+00  -0.197622E+07   0.000000E+00   0.197622E+07   0.166293E+07  -0.166293E+07   0.000000E+00   0.106775E+07
+
+ element          1  point      2        integration pt. coordinate =  0.178868E+01   0.788675E+00
+  stress   0.342291E+07   0.000000E+00  -0.197622E+07   0.000000E+00   0.197622E+07   0.166293E+07  -0.166293E+07   0.000000E+00   0.106775E+07
+
+ element          1  point      3        integration pt. coordinate =  0.121132E+01   0.211325E+00
+  stress   0.342291E+07   0.000000E+00  -0.197622E+07   0.000000E+00   0.197622E+07   0.166293E+07  -0.166293E+07   0.000000E+00   0.106775E+07
+
+ element          1  point      4        integration pt. coordinate =  0.236603E+01   0.788675E+00
+  stress   0.342291E+07   0.000000E+00  -0.197622E+07   0.000000E+00   0.197622E+07   0.166293E+07  -0.166293E+07   0.000000E+00   0.106775E+07
+
+ element          1  point      0        central pt. coordinate =  0.150000E+01   0.500000E+00
+  stress   0.342291E+07   0.000000E+00  -0.197622E+07   0.000000E+00   0.197622E+07   0.166293E+07  -0.166293E+07   0.000000E+00   0.106775E+07
+  
+ *************************** t i m e   s t e p  =         4   f i n i s h ***************************
+ ########################### t i m e   s t e p  =         5    s t a r t  ###########################
+  
+  
+ ########################### t i m e   s t e p  =         5    s t a r t  ###########################
+  
+ **** Properties of tangential stiffness matrix ****
+
+
+ number of negative pivots at preceding time step =    0
+ number of negative pivots at this time step =    0
+ determinant = 0.1000000E+01 *  0.93536E+50 **     0
+
+
+ p r i n t   o u t   f o r   t i m e   s t e p    5
+
+ current time = 0.2500000E+00, time step = 0.5000000E-01
+
+                     2 equilibrium iterations performed on this time step to reestablish equilibrium
+
+   SOLUTION
+
+      node   x-displacement  y-displacement   pore pressure     temperature      y-rotation      z-rotation
+
+         1    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         2    0.2500000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         3    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         4    0.2500000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+
+
+ s t r e s s   c a l c u l a t i o n s   f o r   e l e m e n t   g r o u p    1   (2/d continuum)
+                                                                                  (plane  strain)
+
+            effective          mean            p r i n c i p a l   v a l u e s                  p h y s i c a l   c o m p o n e n t s
+          stress/strain       normal        minimum     intermediate      maximum          11             22             33             12
+          (intensities)     intensity
+
+ element          1  point      1        integration pt. coordinate =  0.739637E+00   0.211325E+00
+  stress   0.386025E+07   0.000000E+00  -0.222871E+07   0.000000E+00   0.222871E+07   0.211502E+07  -0.211502E+07   0.000000E+00   0.702764E+06
+
+ element          1  point      2        integration pt. coordinate =  0.218301E+01   0.788675E+00
+  stress   0.386025E+07   0.000000E+00  -0.222871E+07   0.000000E+00   0.222871E+07   0.211502E+07  -0.211502E+07   0.000000E+00   0.702764E+06
+
+ element          1  point      3        integration pt. coordinate =  0.131699E+01   0.211325E+00
+  stress   0.386025E+07   0.000000E+00  -0.222871E+07   0.000000E+00   0.222871E+07   0.211502E+07  -0.211502E+07   0.000000E+00   0.702764E+06
+
+ element          1  point      4        integration pt. coordinate =  0.276036E+01   0.788675E+00
+  stress   0.386025E+07   0.000000E+00  -0.222871E+07   0.000000E+00   0.222871E+07   0.211502E+07  -0.211502E+07   0.000000E+00   0.702764E+06
+
+ element          1  point      0        central pt. coordinate =  0.175000E+01   0.500000E+00
+  stress   0.386025E+07   0.000000E+00  -0.222871E+07   0.000000E+00   0.222871E+07   0.211502E+07  -0.211502E+07   0.000000E+00   0.702764E+06
+  
+ *************************** t i m e   s t e p  =         5   f i n i s h ***************************
+ ########################### t i m e   s t e p  =         6    s t a r t  ###########################
+  
+  
+ ########################### t i m e   s t e p  =         6    s t a r t  ###########################
+  
+ **** Properties of tangential stiffness matrix ****
+
+
+ number of negative pivots at preceding time step =    0
+ number of negative pivots at this time step =    0
+ determinant = 0.1000000E+01 *  0.93536E+50 **     0
+
+
+ p r i n t   o u t   f o r   t i m e   s t e p    6
+
+ current time = 0.3000000E+00, time step = 0.5000000E-01
+
+                     2 equilibrium iterations performed on this time step to reestablish equilibrium
+
+   SOLUTION
+
+      node   x-displacement  y-displacement   pore pressure     temperature      y-rotation      z-rotation
+
+         1    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         2    0.3000000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         3    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         4    0.3000000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+
+
+ s t r e s s   c a l c u l a t i o n s   f o r   e l e m e n t   g r o u p    1   (2/d continuum)
+                                                                                  (plane  strain)
+
+            effective          mean            p r i n c i p a l   v a l u e s                  p h y s i c a l   c o m p o n e n t s
+          stress/strain       normal        minimum     intermediate      maximum          11             22             33             12
+          (intensities)     intensity
+
+ element          1  point      1        integration pt. coordinate =  0.845299E+00   0.211325E+00
+  stress   0.405758E+07   0.000000E+00  -0.234264E+07   0.000000E+00   0.234264E+07   0.233677E+07  -0.233677E+07   0.000000E+00   0.165712E+06
+
+ element          1  point      2        integration pt. coordinate =  0.257735E+01   0.788675E+00
+  stress   0.405758E+07   0.000000E+00  -0.234264E+07   0.000000E+00   0.234264E+07   0.233677E+07  -0.233677E+07   0.000000E+00   0.165712E+06
+
+ element          1  point      3        integration pt. coordinate =  0.142265E+01   0.211325E+00
+  stress   0.405758E+07   0.000000E+00  -0.234264E+07   0.000000E+00   0.234264E+07   0.233677E+07  -0.233677E+07   0.000000E+00   0.165712E+06
+
+ element          1  point      4        integration pt. coordinate =  0.315470E+01   0.788675E+00
+  stress   0.405758E+07   0.000000E+00  -0.234264E+07   0.000000E+00   0.234264E+07   0.233677E+07  -0.233677E+07   0.000000E+00   0.165712E+06
+
+ element          1  point      0        central pt. coordinate =  0.200000E+01   0.500000E+00
+  stress   0.405758E+07   0.000000E+00  -0.234264E+07   0.000000E+00   0.234264E+07   0.233677E+07  -0.233677E+07   0.000000E+00   0.165712E+06
+  
+ *************************** t i m e   s t e p  =         6   f i n i s h ***************************
+ ########################### t i m e   s t e p  =         7    s t a r t  ###########################
+  
+  
+ ########################### t i m e   s t e p  =         7    s t a r t  ###########################
+  
+ **** Properties of tangential stiffness matrix ****
+
+
+ number of negative pivots at preceding time step =    0
+ number of negative pivots at this time step =    0
+ determinant = 0.1000000E+01 *  0.93536E+50 **     0
+
+
+ p r i n t   o u t   f o r   t i m e   s t e p    7
+
+ current time = 0.3500000E+00, time step = 0.5000000E-01
+
+                     2 equilibrium iterations performed on this time step to reestablish equilibrium
+
+   SOLUTION
+
+      node   x-displacement  y-displacement   pore pressure     temperature      y-rotation      z-rotation
+
+         1    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         2    0.3500000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         3    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         4    0.3500000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+
+
+ s t r e s s   c a l c u l a t i o n s   f o r   e l e m e n t   g r o u p    1   (2/d continuum)
+                                                                                  (plane  strain)
+
+            effective          mean            p r i n c i p a l   v a l u e s                  p h y s i c a l   c o m p o n e n t s
+          stress/strain       normal        minimum     intermediate      maximum          11             22             33             12
+          (intensities)     intensity
+
+ element          1  point      1        integration pt. coordinate =  0.950962E+00   0.211325E+00
+  stress   0.400262E+07   0.000000E+00  -0.231092E+07   0.000000E+00   0.231092E+07   0.227391E+07  -0.227391E+07   0.000000E+00  -0.411912E+06
+
+ element          1  point      2        integration pt. coordinate =  0.297169E+01   0.788675E+00
+  stress   0.400262E+07   0.000000E+00  -0.231092E+07   0.000000E+00   0.231092E+07   0.227391E+07  -0.227391E+07   0.000000E+00  -0.411912E+06
+
+ element          1  point      3        integration pt. coordinate =  0.152831E+01   0.211325E+00
+  stress   0.400262E+07   0.000000E+00  -0.231092E+07   0.000000E+00   0.231092E+07   0.227391E+07  -0.227391E+07   0.000000E+00  -0.411912E+06
+
+ element          1  point      4        integration pt. coordinate =  0.354904E+01   0.788675E+00
+  stress   0.400262E+07   0.000000E+00  -0.231092E+07   0.000000E+00   0.231092E+07   0.227391E+07  -0.227391E+07   0.000000E+00  -0.411912E+06
+
+ element          1  point      0        central pt. coordinate =  0.225000E+01   0.500000E+00
+  stress   0.400262E+07   0.000000E+00  -0.231092E+07   0.000000E+00   0.231092E+07   0.227391E+07  -0.227391E+07   0.000000E+00  -0.411912E+06
+  
+ *************************** t i m e   s t e p  =         7   f i n i s h ***************************
+ ########################### t i m e   s t e p  =         8    s t a r t  ###########################
+  
+  
+ ########################### t i m e   s t e p  =         8    s t a r t  ###########################
+  
+ **** Properties of tangential stiffness matrix ****
+
+
+ number of negative pivots at preceding time step =    0
+ number of negative pivots at this time step =    0
+ determinant = 0.1000000E+01 *  0.93536E+50 **     0
+
+
+ p r i n t   o u t   f o r   t i m e   s t e p    8
+
+ current time = 0.4000000E+00, time step = 0.5000000E-01
+
+                     2 equilibrium iterations performed on this time step to reestablish equilibrium
+
+   SOLUTION
+
+      node   x-displacement  y-displacement   pore pressure     temperature      y-rotation      z-rotation
+
+         1    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         2    0.4000000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         3    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         4    0.4000000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+
+
+ s t r e s s   c a l c u l a t i o n s   f o r   e l e m e n t   g r o u p    1   (2/d continuum)
+                                                                                  (plane  strain)
+
+            effective          mean            p r i n c i p a l   v a l u e s                  p h y s i c a l   c o m p o n e n t s
+          stress/strain       normal        minimum     intermediate      maximum          11             22             33             12
+          (intensities)     intensity
+
+ element          1  point      1        integration pt. coordinate =  0.105662E+01   0.211325E+00
+  stress   0.369881E+07   0.000000E+00  -0.213551E+07   0.000000E+00   0.213551E+07   0.194181E+07  -0.194181E+07   0.000000E+00  -0.888685E+06
+
+ element          1  point      2        integration pt. coordinate =  0.336603E+01   0.788675E+00
+  stress   0.369881E+07   0.000000E+00  -0.213551E+07   0.000000E+00   0.213551E+07   0.194181E+07  -0.194181E+07   0.000000E+00  -0.888685E+06
+
+ element          1  point      3        integration pt. coordinate =  0.163397E+01   0.211325E+00
+  stress   0.369881E+07   0.000000E+00  -0.213551E+07   0.000000E+00   0.213551E+07   0.194181E+07  -0.194181E+07   0.000000E+00  -0.888685E+06
+
+ element          1  point      4        integration pt. coordinate =  0.394338E+01   0.788675E+00
+  stress   0.369881E+07   0.000000E+00  -0.213551E+07   0.000000E+00   0.213551E+07   0.194181E+07  -0.194181E+07   0.000000E+00  -0.888685E+06
+
+ element          1  point      0        central pt. coordinate =  0.250000E+01   0.500000E+00
+  stress   0.369881E+07   0.000000E+00  -0.213551E+07   0.000000E+00   0.213551E+07   0.194181E+07  -0.194181E+07   0.000000E+00  -0.888685E+06
+  
+ *************************** t i m e   s t e p  =         8   f i n i s h ***************************
+ ########################### t i m e   s t e p  =         9    s t a r t  ###########################
+  
+  
+ ########################### t i m e   s t e p  =         9    s t a r t  ###########################
+  
+ **** Properties of tangential stiffness matrix ****
+
+
+ number of negative pivots at preceding time step =    0
+ number of negative pivots at this time step =    0
+ determinant = 0.1000000E+01 *  0.93536E+50 **     0
+
+
+ p r i n t   o u t   f o r   t i m e   s t e p    9
+
+ current time = 0.4500000E+00, time step = 0.5000000E-01
+
+                     2 equilibrium iterations performed on this time step to reestablish equilibrium
+
+   SOLUTION
+
+      node   x-displacement  y-displacement   pore pressure     temperature      y-rotation      z-rotation
+
+         1    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         2    0.4500000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         3    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         4    0.4500000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+
+
+ s t r e s s   c a l c u l a t i o n s   f o r   e l e m e n t   g r o u p    1   (2/d continuum)
+                                                                                  (plane  strain)
+
+            effective          mean            p r i n c i p a l   v a l u e s                  p h y s i c a l   c o m p o n e n t s
+          stress/strain       normal        minimum     intermediate      maximum          11             22             33             12
+          (intensities)     intensity
+
+ element          1  point      1        integration pt. coordinate =  0.116229E+01   0.211325E+00
+  stress   0.316502E+07   0.000000E+00  -0.182732E+07   0.000000E+00   0.182732E+07   0.142179E+07  -0.142179E+07   0.000000E+00  -0.114788E+07
+
+ element          1  point      2        integration pt. coordinate =  0.376036E+01   0.788675E+00
+  stress   0.316502E+07   0.000000E+00  -0.182732E+07   0.000000E+00   0.182732E+07   0.142179E+07  -0.142179E+07   0.000000E+00  -0.114788E+07
+
+ element          1  point      3        integration pt. coordinate =  0.173964E+01   0.211325E+00
+  stress   0.316502E+07   0.000000E+00  -0.182732E+07   0.000000E+00   0.182732E+07   0.142179E+07  -0.142179E+07   0.000000E+00  -0.114788E+07
+
+ element          1  point      4        integration pt. coordinate =  0.433771E+01   0.788675E+00
+  stress   0.316502E+07   0.000000E+00  -0.182732E+07   0.000000E+00   0.182732E+07   0.142179E+07  -0.142179E+07   0.000000E+00  -0.114788E+07
+
+ element          1  point      0        central pt. coordinate =  0.275000E+01   0.500000E+00
+  stress   0.316502E+07   0.000000E+00  -0.182732E+07   0.000000E+00   0.182732E+07   0.142179E+07  -0.142179E+07   0.000000E+00  -0.114788E+07
+  
+ *************************** t i m e   s t e p  =         9   f i n i s h ***************************
+ ########################### t i m e   s t e p  =        10    s t a r t  ###########################
+  
+  
+ ########################### t i m e   s t e p  =        10    s t a r t  ###########################
+  
+ **** Properties of tangential stiffness matrix ****
+
+
+ number of negative pivots at preceding time step =    0
+ number of negative pivots at this time step =    0
+ determinant = 0.1000000E+01 *  0.93536E+50 **     0
+
+
+ p r i n t   o u t   f o r   t i m e   s t e p   10
+
+ current time = 0.5000000E+00, time step = 0.5000000E-01
+
+                     2 equilibrium iterations performed on this time step to reestablish equilibrium
+
+   SOLUTION
+
+      node   x-displacement  y-displacement   pore pressure     temperature      y-rotation      z-rotation
+
+         1    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         2    0.5000000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         3    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         4    0.5000000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+
+
+ s t r e s s   c a l c u l a t i o n s   f o r   e l e m e n t   g r o u p    1   (2/d continuum)
+                                                                                  (plane  strain)
+
+            effective          mean            p r i n c i p a l   v a l u e s                  p h y s i c a l   c o m p o n e n t s
+          stress/strain       normal        minimum     intermediate      maximum          11             22             33             12
+          (intensities)     intensity
+
+ element          1  point      1        integration pt. coordinate =  0.126795E+01   0.211325E+00
+  stress   0.243444E+07   0.000000E+00  -0.140553E+07   0.000000E+00   0.140553E+07   0.841169E+06  -0.841169E+06   0.000000E+00  -0.112603E+07
+
+ element          1  point      2        integration pt. coordinate =  0.415470E+01   0.788675E+00
+  stress   0.243444E+07   0.000000E+00  -0.140553E+07   0.000000E+00   0.140553E+07   0.841169E+06  -0.841169E+06   0.000000E+00  -0.112603E+07
+
+ element          1  point      3        integration pt. coordinate =  0.184530E+01   0.211325E+00
+  stress   0.243444E+07   0.000000E+00  -0.140553E+07   0.000000E+00   0.140553E+07   0.841169E+06  -0.841169E+06   0.000000E+00  -0.112603E+07
+
+ element          1  point      4        integration pt. coordinate =  0.473205E+01   0.788675E+00
+  stress   0.243444E+07   0.000000E+00  -0.140553E+07   0.000000E+00   0.140553E+07   0.841169E+06  -0.841169E+06   0.000000E+00  -0.112603E+07
+
+ element          1  point      0        central pt. coordinate =  0.300000E+01   0.500000E+00
+  stress   0.243444E+07   0.000000E+00  -0.140553E+07   0.000000E+00   0.140553E+07   0.841169E+06  -0.841169E+06   0.000000E+00  -0.112603E+07
+  
+ *************************** t i m e   s t e p  =        10   f i n i s h ***************************
+ ########################### t i m e   s t e p  =        11    s t a r t  ###########################
+  
+  
+ ########################### t i m e   s t e p  =        11    s t a r t  ###########################
+  
+ **** Properties of tangential stiffness matrix ****
+
+
+ number of negative pivots at preceding time step =    0
+ number of negative pivots at this time step =    0
+ determinant = 0.1000000E+01 *  0.93536E+50 **     0
+
+
+ p r i n t   o u t   f o r   t i m e   s t e p   11
+
+ current time = 0.5500000E+00, time step = 0.5000000E-01
+
+                     2 equilibrium iterations performed on this time step to reestablish equilibrium
+
+   SOLUTION
+
+      node   x-displacement  y-displacement   pore pressure     temperature      y-rotation      z-rotation
+
+         1    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         2    0.5500000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         3    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         4    0.5500000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+
+
+ s t r e s s   c a l c u l a t i o n s   f o r   e l e m e n t   g r o u p    1   (2/d continuum)
+                                                                                  (plane  strain)
+
+            effective          mean            p r i n c i p a l   v a l u e s                  p h y s i c a l   c o m p o n e n t s
+          stress/strain       normal        minimum     intermediate      maximum          11             22             33             12
+          (intensities)     intensity
+
+ element          1  point      1        integration pt. coordinate =  0.137361E+01   0.211325E+00
+  stress   0.155251E+07   0.000000E+00  -0.896341E+06   0.000000E+00   0.896341E+06   0.342098E+06  -0.342098E+06   0.000000E+00  -0.828490E+06
+
+ element          1  point      2        integration pt. coordinate =  0.454904E+01   0.788675E+00
+  stress   0.155251E+07   0.000000E+00  -0.896341E+06   0.000000E+00   0.896341E+06   0.342098E+06  -0.342098E+06   0.000000E+00  -0.828490E+06
+
+ element          1  point      3        integration pt. coordinate =  0.195096E+01   0.211325E+00
+  stress   0.155251E+07   0.000000E+00  -0.896341E+06   0.000000E+00   0.896341E+06   0.342098E+06  -0.342098E+06   0.000000E+00  -0.828490E+06
+
+ element          1  point      4        integration pt. coordinate =  0.512639E+01   0.788675E+00
+  stress   0.155251E+07   0.000000E+00  -0.896341E+06   0.000000E+00   0.896341E+06   0.342098E+06  -0.342098E+06   0.000000E+00  -0.828490E+06
+
+ element          1  point      0        central pt. coordinate =  0.325000E+01   0.500000E+00
+  stress   0.155251E+07   0.000000E+00  -0.896341E+06   0.000000E+00   0.896341E+06   0.342098E+06  -0.342098E+06   0.000000E+00  -0.828490E+06
+  
+ *************************** t i m e   s t e p  =        11   f i n i s h ***************************
+ ########################### t i m e   s t e p  =        12    s t a r t  ###########################
+  
+  
+ ########################### t i m e   s t e p  =        12    s t a r t  ###########################
+  
+ **** Properties of tangential stiffness matrix ****
+
+
+ number of negative pivots at preceding time step =    0
+ number of negative pivots at this time step =    0
+ determinant = 0.1000000E+01 *  0.93536E+50 **     0
+
+
+ p r i n t   o u t   f o r   t i m e   s t e p   12
+
+ current time = 0.6000000E+00, time step = 0.5000000E-01
+
+                     2 equilibrium iterations performed on this time step to reestablish equilibrium
+
+   SOLUTION
+
+      node   x-displacement  y-displacement   pore pressure     temperature      y-rotation      z-rotation
+
+         1    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         2    0.6000000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         3    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         4    0.6000000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+
+
+ s t r e s s   c a l c u l a t i o n s   f o r   e l e m e n t   g r o u p    1   (2/d continuum)
+                                                                                  (plane  strain)
+
+            effective          mean            p r i n c i p a l   v a l u e s                  p h y s i c a l   c o m p o n e n t s
+          stress/strain       normal        minimum     intermediate      maximum          11             22             33             12
+          (intensities)     intensity
+
+ element          1  point      1        integration pt. coordinate =  0.147927E+01   0.211325E+00
+  stress   0.574043E+06   0.000000E+00  -0.331424E+06   0.000000E+00   0.331424E+06   0.467705E+05  -0.467705E+05   0.000000E+00  -0.328107E+06
+
+ element          1  point      2        integration pt. coordinate =  0.494338E+01   0.788675E+00
+  stress   0.574043E+06   0.000000E+00  -0.331424E+06   0.000000E+00   0.331424E+06   0.467705E+05  -0.467705E+05   0.000000E+00  -0.328107E+06
+
+ element          1  point      3        integration pt. coordinate =  0.205662E+01   0.211325E+00
+  stress   0.574043E+06   0.000000E+00  -0.331424E+06   0.000000E+00   0.331424E+06   0.467705E+05  -0.467705E+05   0.000000E+00  -0.328107E+06
+
+ element          1  point      4        integration pt. coordinate =  0.552073E+01   0.788675E+00
+  stress   0.574043E+06   0.000000E+00  -0.331424E+06   0.000000E+00   0.331424E+06   0.467705E+05  -0.467705E+05   0.000000E+00  -0.328107E+06
+
+ element          1  point      0        central pt. coordinate =  0.350000E+01   0.500000E+00
+  stress   0.574043E+06   0.000000E+00  -0.331424E+06   0.000000E+00   0.331424E+06   0.467705E+05  -0.467705E+05   0.000000E+00  -0.328107E+06
+  
+ *************************** t i m e   s t e p  =        12   f i n i s h ***************************
+ ########################### t i m e   s t e p  =        13    s t a r t  ###########################
+  
+  
+ ########################### t i m e   s t e p  =        13    s t a r t  ###########################
+  
+ **** Properties of tangential stiffness matrix ****
+
+
+ number of negative pivots at preceding time step =    0
+ number of negative pivots at this time step =    0
+ determinant = 0.1000000E+01 *  0.93536E+50 **     0
+
+
+ p r i n t   o u t   f o r   t i m e   s t e p   13
+
+ current time = 0.6500000E+00, time step = 0.5000000E-01
+
+                     2 equilibrium iterations performed on this time step to reestablish equilibrium
+
+   SOLUTION
+
+      node   x-displacement  y-displacement   pore pressure     temperature      y-rotation      z-rotation
+
+         1    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         2    0.6500000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         3    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         4    0.6500000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+
+
+ s t r e s s   c a l c u l a t i o n s   f o r   e l e m e n t   g r o u p    1   (2/d continuum)
+                                                                                  (plane  strain)
+
+            effective          mean            p r i n c i p a l   v a l u e s                  p h y s i c a l   c o m p o n e n t s
+          stress/strain       normal        minimum     intermediate      maximum          11             22             33             12
+          (intensities)     intensity
+
+ element          1  point      1        integration pt. coordinate =  0.158494E+01   0.211325E+00
+  stress   0.440112E+06   0.000000E+00  -0.254099E+06   0.000000E+00   0.254099E+06   0.274923E+05  -0.274923E+05   0.000000E+00   0.252607E+06
+
+ element          1  point      2        integration pt. coordinate =  0.533771E+01   0.788675E+00
+  stress   0.440112E+06   0.000000E+00  -0.254099E+06   0.000000E+00   0.254099E+06   0.274923E+05  -0.274923E+05   0.000000E+00   0.252607E+06
+
+ element          1  point      3        integration pt. coordinate =  0.216229E+01   0.211325E+00
+  stress   0.440112E+06   0.000000E+00  -0.254099E+06   0.000000E+00   0.254099E+06   0.274923E+05  -0.274923E+05   0.000000E+00   0.252607E+06
+
+ element          1  point      4        integration pt. coordinate =  0.591506E+01   0.788675E+00
+  stress   0.440112E+06   0.000000E+00  -0.254099E+06   0.000000E+00   0.254099E+06   0.274923E+05  -0.274923E+05   0.000000E+00   0.252607E+06
+
+ element          1  point      0        central pt. coordinate =  0.375000E+01   0.500000E+00
+  stress   0.440112E+06   0.000000E+00  -0.254099E+06   0.000000E+00   0.254099E+06   0.274923E+05  -0.274923E+05   0.000000E+00   0.252607E+06
+  
+ *************************** t i m e   s t e p  =        13   f i n i s h ***************************
+ ########################### t i m e   s t e p  =        14    s t a r t  ###########################
+  
+  
+ ########################### t i m e   s t e p  =        14    s t a r t  ###########################
+  
+ **** Properties of tangential stiffness matrix ****
+
+
+ number of negative pivots at preceding time step =    0
+ number of negative pivots at this time step =    0
+ determinant = 0.1000000E+01 *  0.93536E+50 **     0
+
+
+ p r i n t   o u t   f o r   t i m e   s t e p   14
+
+ current time = 0.7000000E+00, time step = 0.5000000E-01
+
+                     2 equilibrium iterations performed on this time step to reestablish equilibrium
+
+   SOLUTION
+
+      node   x-displacement  y-displacement   pore pressure     temperature      y-rotation      z-rotation
+
+         1    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         2    0.7000000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         3    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         4    0.7000000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+
+
+ s t r e s s   c a l c u l a t i o n s   f o r   e l e m e n t   g r o u p    1   (2/d continuum)
+                                                                                  (plane  strain)
+
+            effective          mean            p r i n c i p a l   v a l u e s                  p h y s i c a l   c o m p o n e n t s
+          stress/strain       normal        minimum     intermediate      maximum          11             22             33             12
+          (intensities)     intensity
+
+ element          1  point      1        integration pt. coordinate =  0.169060E+01   0.211325E+00
+  stress   0.142690E+07   0.000000E+00  -0.823823E+06   0.000000E+00   0.823823E+06   0.288983E+06  -0.288983E+06   0.000000E+00   0.771475E+06
+
+ element          1  point      2        integration pt. coordinate =  0.573205E+01   0.788675E+00
+  stress   0.142690E+07   0.000000E+00  -0.823823E+06   0.000000E+00   0.823823E+06   0.288983E+06  -0.288983E+06   0.000000E+00   0.771475E+06
+
+ element          1  point      3        integration pt. coordinate =  0.226795E+01   0.211325E+00
+  stress   0.142690E+07   0.000000E+00  -0.823823E+06   0.000000E+00   0.823823E+06   0.288983E+06  -0.288983E+06   0.000000E+00   0.771475E+06
+
+ element          1  point      4        integration pt. coordinate =  0.630940E+01   0.788675E+00
+  stress   0.142690E+07   0.000000E+00  -0.823823E+06   0.000000E+00   0.823823E+06   0.288983E+06  -0.288983E+06   0.000000E+00   0.771475E+06
+
+ element          1  point      0        central pt. coordinate =  0.400000E+01   0.500000E+00
+  stress   0.142690E+07   0.000000E+00  -0.823823E+06   0.000000E+00   0.823823E+06   0.288983E+06  -0.288983E+06   0.000000E+00   0.771475E+06
+  
+ *************************** t i m e   s t e p  =        14   f i n i s h ***************************
+ ########################### t i m e   s t e p  =        15    s t a r t  ###########################
+  
+  
+ ########################### t i m e   s t e p  =        15    s t a r t  ###########################
+  
+ **** Properties of tangential stiffness matrix ****
+
+
+ number of negative pivots at preceding time step =    0
+ number of negative pivots at this time step =    0
+ determinant = 0.1000000E+01 *  0.93536E+50 **     0
+
+
+ p r i n t   o u t   f o r   t i m e   s t e p   15
+
+ current time = 0.7500000E+00, time step = 0.5000000E-01
+
+                     2 equilibrium iterations performed on this time step to reestablish equilibrium
+
+   SOLUTION
+
+      node   x-displacement  y-displacement   pore pressure     temperature      y-rotation      z-rotation
+
+         1    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         2    0.7500000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         3    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         4    0.7500000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+
+
+ s t r e s s   c a l c u l a t i o n s   f o r   e l e m e n t   g r o u p    1   (2/d continuum)
+                                                                                  (plane  strain)
+
+            effective          mean            p r i n c i p a l   v a l u e s                  p h y s i c a l   c o m p o n e n t s
+          stress/strain       normal        minimum     intermediate      maximum          11             22             33             12
+          (intensities)     intensity
+
+ element          1  point      1        integration pt. coordinate =  0.179626E+01   0.211325E+00
+  stress   0.232498E+07   0.000000E+00  -0.134233E+07   0.000000E+00   0.134233E+07   0.767222E+06  -0.767222E+06   0.000000E+00   0.110146E+07
+
+ element          1  point      2        integration pt. coordinate =  0.612639E+01   0.788675E+00
+  stress   0.232498E+07   0.000000E+00  -0.134233E+07   0.000000E+00   0.134233E+07   0.767222E+06  -0.767222E+06   0.000000E+00   0.110146E+07
+
+ element          1  point      3        integration pt. coordinate =  0.237361E+01   0.211325E+00
+  stress   0.232498E+07   0.000000E+00  -0.134233E+07   0.000000E+00   0.134233E+07   0.767222E+06  -0.767222E+06   0.000000E+00   0.110146E+07
+
+ element          1  point      4        integration pt. coordinate =  0.670374E+01   0.788675E+00
+  stress   0.232498E+07   0.000000E+00  -0.134233E+07   0.000000E+00   0.134233E+07   0.767222E+06  -0.767222E+06   0.000000E+00   0.110146E+07
+
+ element          1  point      0        central pt. coordinate =  0.425000E+01   0.500000E+00
+  stress   0.232498E+07   0.000000E+00  -0.134233E+07   0.000000E+00   0.134233E+07   0.767222E+06  -0.767222E+06   0.000000E+00   0.110146E+07
+  
+ *************************** t i m e   s t e p  =        15   f i n i s h ***************************
+ ########################### t i m e   s t e p  =        16    s t a r t  ###########################
+  
+  
+ ########################### t i m e   s t e p  =        16    s t a r t  ###########################
+  
+ **** Properties of tangential stiffness matrix ****
+
+
+ number of negative pivots at preceding time step =    0
+ number of negative pivots at this time step =    0
+ determinant = 0.1000000E+01 *  0.93536E+50 **     0
+
+
+ p r i n t   o u t   f o r   t i m e   s t e p   16
+
+ current time = 0.8000000E+00, time step = 0.5000000E-01
+
+                     2 equilibrium iterations performed on this time step to reestablish equilibrium
+
+   SOLUTION
+
+      node   x-displacement  y-displacement   pore pressure     temperature      y-rotation      z-rotation
+
+         1    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         2    0.8000000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         3    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         4    0.8000000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+
+
+ s t r e s s   c a l c u l a t i o n s   f o r   e l e m e n t   g r o u p    1   (2/d continuum)
+                                                                                  (plane  strain)
+
+            effective          mean            p r i n c i p a l   v a l u e s                  p h y s i c a l   c o m p o n e n t s
+          stress/strain       normal        minimum     intermediate      maximum          11             22             33             12
+          (intensities)     intensity
+
+ element          1  point      1        integration pt. coordinate =  0.190192E+01   0.211325E+00
+  stress   0.307849E+07   0.000000E+00  -0.177737E+07   0.000000E+00   0.177737E+07   0.134512E+07  -0.134512E+07   0.000000E+00   0.116177E+07
+
+ element          1  point      2        integration pt. coordinate =  0.652073E+01   0.788675E+00
+  stress   0.307849E+07   0.000000E+00  -0.177737E+07   0.000000E+00   0.177737E+07   0.134512E+07  -0.134512E+07   0.000000E+00   0.116177E+07
+
+ element          1  point      3        integration pt. coordinate =  0.247927E+01   0.211325E+00
+  stress   0.307849E+07   0.000000E+00  -0.177737E+07   0.000000E+00   0.177737E+07   0.134512E+07  -0.134512E+07   0.000000E+00   0.116177E+07
+
+ element          1  point      4        integration pt. coordinate =  0.709808E+01   0.788675E+00
+  stress   0.307849E+07   0.000000E+00  -0.177737E+07   0.000000E+00   0.177737E+07   0.134512E+07  -0.134512E+07   0.000000E+00   0.116177E+07
+
+ element          1  point      0        central pt. coordinate =  0.450000E+01   0.500000E+00
+  stress   0.307849E+07   0.000000E+00  -0.177737E+07   0.000000E+00   0.177737E+07   0.134512E+07  -0.134512E+07   0.000000E+00   0.116177E+07
+  
+ *************************** t i m e   s t e p  =        16   f i n i s h ***************************
+ ########################### t i m e   s t e p  =        17    s t a r t  ###########################
+  
+  
+ ########################### t i m e   s t e p  =        17    s t a r t  ###########################
+  
+ **** Properties of tangential stiffness matrix ****
+
+
+ number of negative pivots at preceding time step =    0
+ number of negative pivots at this time step =    0
+ determinant = 0.1000000E+01 *  0.93536E+50 **     0
+
+
+ p r i n t   o u t   f o r   t i m e   s t e p   17
+
+ current time = 0.8500000E+00, time step = 0.5000000E-01
+
+                     2 equilibrium iterations performed on this time step to reestablish equilibrium
+
+   SOLUTION
+
+      node   x-displacement  y-displacement   pore pressure     temperature      y-rotation      z-rotation
+
+         1    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         2    0.8500000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         3    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         4    0.8500000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+
+
+ s t r e s s   c a l c u l a t i o n s   f o r   e l e m e n t   g r o u p    1   (2/d continuum)
+                                                                                  (plane  strain)
+
+            effective          mean            p r i n c i p a l   v a l u e s                  p h y s i c a l   c o m p o n e n t s
+          stress/strain       normal        minimum     intermediate      maximum          11             22             33             12
+          (intensities)     intensity
+
+ element          1  point      1        integration pt. coordinate =  0.200759E+01   0.211325E+00
+  stress   0.364061E+07   0.000000E+00  -0.210191E+07   0.000000E+00   0.210191E+07   0.188118E+07  -0.188118E+07   0.000000E+00   0.937634E+06
+
+ element          1  point      2        integration pt. coordinate =  0.691506E+01   0.788675E+00
+  stress   0.364061E+07   0.000000E+00  -0.210191E+07   0.000000E+00   0.210191E+07   0.188118E+07  -0.188118E+07   0.000000E+00   0.937634E+06
+
+ element          1  point      3        integration pt. coordinate =  0.258494E+01   0.211325E+00
+  stress   0.364061E+07   0.000000E+00  -0.210191E+07   0.000000E+00   0.210191E+07   0.188118E+07  -0.188118E+07   0.000000E+00   0.937634E+06
+
+ element          1  point      4        integration pt. coordinate =  0.749241E+01   0.788675E+00
+  stress   0.364061E+07   0.000000E+00  -0.210191E+07   0.000000E+00   0.210191E+07   0.188118E+07  -0.188118E+07   0.000000E+00   0.937634E+06
+
+ element          1  point      0        central pt. coordinate =  0.475000E+01   0.500000E+00
+  stress   0.364061E+07   0.000000E+00  -0.210191E+07   0.000000E+00   0.210191E+07   0.188118E+07  -0.188118E+07   0.000000E+00   0.937634E+06
+  
+ *************************** t i m e   s t e p  =        17   f i n i s h ***************************
+ ########################### t i m e   s t e p  =        18    s t a r t  ###########################
+  
+  
+ ########################### t i m e   s t e p  =        18    s t a r t  ###########################
+  
+ **** Properties of tangential stiffness matrix ****
+
+
+ number of negative pivots at preceding time step =    0
+ number of negative pivots at this time step =    0
+ determinant = 0.1000000E+01 *  0.93536E+50 **     0
+
+
+ p r i n t   o u t   f o r   t i m e   s t e p   18
+
+ current time = 0.9000000E+00, time step = 0.5000000E-01
+
+                     2 equilibrium iterations performed on this time step to reestablish equilibrium
+
+   SOLUTION
+
+      node   x-displacement  y-displacement   pore pressure     temperature      y-rotation      z-rotation
+
+         1    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         2    0.9000000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         3    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         4    0.9000000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+
+
+ s t r e s s   c a l c u l a t i o n s   f o r   e l e m e n t   g r o u p    1   (2/d continuum)
+                                                                                  (plane  strain)
+
+            effective          mean            p r i n c i p a l   v a l u e s                  p h y s i c a l   c o m p o n e n t s
+          stress/strain       normal        minimum     intermediate      maximum          11             22             33             12
+          (intensities)     intensity
+
+ element          1  point      1        integration pt. coordinate =  0.211325E+01   0.211325E+00
+  stress   0.397636E+07   0.000000E+00  -0.229575E+07   0.000000E+00   0.229575E+07   0.224417E+07  -0.224417E+07   0.000000E+00   0.483935E+06
+
+ element          1  point      2        integration pt. coordinate =  0.730940E+01   0.788675E+00
+  stress   0.397636E+07   0.000000E+00  -0.229575E+07   0.000000E+00   0.229575E+07   0.224417E+07  -0.224417E+07   0.000000E+00   0.483935E+06
+
+ element          1  point      3        integration pt. coordinate =  0.269060E+01   0.211325E+00
+  stress   0.397636E+07   0.000000E+00  -0.229575E+07   0.000000E+00   0.229575E+07   0.224417E+07  -0.224417E+07   0.000000E+00   0.483935E+06
+
+ element          1  point      4        integration pt. coordinate =  0.788675E+01   0.788675E+00
+  stress   0.397636E+07   0.000000E+00  -0.229575E+07   0.000000E+00   0.229575E+07   0.224417E+07  -0.224417E+07   0.000000E+00   0.483935E+06
+
+ element          1  point      0        central pt. coordinate =  0.500000E+01   0.500000E+00
+  stress   0.397636E+07   0.000000E+00  -0.229575E+07   0.000000E+00   0.229575E+07   0.224417E+07  -0.224417E+07   0.000000E+00   0.483935E+06
+  
+ *************************** t i m e   s t e p  =        18   f i n i s h ***************************
+ ########################### t i m e   s t e p  =        19    s t a r t  ###########################
+  
+  
+ ########################### t i m e   s t e p  =        19    s t a r t  ###########################
+  
+ **** Properties of tangential stiffness matrix ****
+
+
+ number of negative pivots at preceding time step =    0
+ number of negative pivots at this time step =    0
+ determinant = 0.1000000E+01 *  0.93536E+50 **     0
+
+
+ p r i n t   o u t   f o r   t i m e   s t e p   19
+
+ current time = 0.9500000E+00, time step = 0.5000000E-01
+
+                     2 equilibrium iterations performed on this time step to reestablish equilibrium
+
+   SOLUTION
+
+      node   x-displacement  y-displacement   pore pressure     temperature      y-rotation      z-rotation
+
+         1    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         2    0.9500000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         3    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         4    0.9500000E+01   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+
+
+ s t r e s s   c a l c u l a t i o n s   f o r   e l e m e n t   g r o u p    1   (2/d continuum)
+                                                                                  (plane  strain)
+
+            effective          mean            p r i n c i p a l   v a l u e s                  p h y s i c a l   c o m p o n e n t s
+          stress/strain       normal        minimum     intermediate      maximum          11             22             33             12
+          (intensities)     intensity
+
+ element          1  point      1        integration pt. coordinate =  0.221891E+01   0.211325E+00
+  stress   0.406489E+07   0.000000E+00  -0.234686E+07   0.000000E+00   0.234686E+07   0.234520E+07  -0.234520E+07   0.000000E+00  -0.882472E+05
+
+ element          1  point      2        integration pt. coordinate =  0.770374E+01   0.788675E+00
+  stress   0.406489E+07   0.000000E+00  -0.234686E+07   0.000000E+00   0.234686E+07   0.234520E+07  -0.234520E+07   0.000000E+00  -0.882472E+05
+
+ element          1  point      3        integration pt. coordinate =  0.279626E+01   0.211325E+00
+  stress   0.406489E+07   0.000000E+00  -0.234686E+07   0.000000E+00   0.234686E+07   0.234520E+07  -0.234520E+07   0.000000E+00  -0.882472E+05
+
+ element          1  point      4        integration pt. coordinate =  0.828109E+01   0.788675E+00
+  stress   0.406489E+07   0.000000E+00  -0.234686E+07   0.000000E+00   0.234686E+07   0.234520E+07  -0.234520E+07   0.000000E+00  -0.882472E+05
+
+ element          1  point      0        central pt. coordinate =  0.525000E+01   0.500000E+00
+  stress   0.406489E+07   0.000000E+00  -0.234686E+07   0.000000E+00   0.234686E+07   0.234520E+07  -0.234520E+07   0.000000E+00  -0.882472E+05
+  
+ *************************** t i m e   s t e p  =        19   f i n i s h ***************************
+ ########################### t i m e   s t e p  =        20    s t a r t  ###########################
+  
+  
+ ########################### t i m e   s t e p  =        20    s t a r t  ###########################
+  
+ **** Properties of tangential stiffness matrix ****
+
+
+ number of negative pivots at preceding time step =    0
+ number of negative pivots at this time step =    0
+ determinant = 0.1000000E+01 *  0.93536E+50 **     0
+
+
+ p r i n t   o u t   f o r   t i m e   s t e p   20
+
+ current time = 0.1000000E+01, time step = 0.5000000E-01
+
+                     2 equilibrium iterations performed on this time step to reestablish equilibrium
+
+   SOLUTION
+
+      node   x-displacement  y-displacement   pore pressure     temperature      y-rotation      z-rotation
+
+         1    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         2    0.1000000E+02   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         3    0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+         4    0.1000000E+02   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00
+
+
+ s t r e s s   c a l c u l a t i o n s   f o r   e l e m e n t   g r o u p    1   (2/d continuum)
+                                                                                  (plane  strain)
+
+            effective          mean            p r i n c i p a l   v a l u e s                  p h y s i c a l   c o m p o n e n t s
+          stress/strain       normal        minimum     intermediate      maximum          11             22             33             12
+          (intensities)     intensity
+
+ element          1  point      1        integration pt. coordinate =  0.232457E+01   0.211325E+00
+  stress   0.390068E+07   0.000000E+00  -0.225206E+07   0.000000E+00   0.225206E+07   0.215955E+07  -0.215955E+07   0.000000E+00  -0.638824E+06
+
+ element          1  point      2        integration pt. coordinate =  0.809808E+01   0.788675E+00
+  stress   0.390068E+07   0.000000E+00  -0.225206E+07   0.000000E+00   0.225206E+07   0.215955E+07  -0.215955E+07   0.000000E+00  -0.638824E+06
+
+ element          1  point      3        integration pt. coordinate =  0.290192E+01   0.211325E+00
+  stress   0.390068E+07   0.000000E+00  -0.225206E+07   0.000000E+00   0.225206E+07   0.215955E+07  -0.215955E+07   0.000000E+00  -0.638824E+06
+
+ element          1  point      4        integration pt. coordinate =  0.867543E+01   0.788675E+00
+  stress   0.390068E+07   0.000000E+00  -0.225206E+07   0.000000E+00   0.225206E+07   0.215955E+07  -0.215955E+07   0.000000E+00  -0.638824E+06
+
+ element          1  point      0        central pt. coordinate =  0.550000E+01   0.500000E+00
+  stress   0.390068E+07   0.000000E+00  -0.225206E+07   0.000000E+00   0.225206E+07   0.215955E+07  -0.215955E+07   0.000000E+00  -0.638824E+06
+  
+ *************************** t i m e   s t e p  =        20   f i n i s h ***************************
+
+
+
+ s o l u t i o n   t i m e   l o g   i n   s e c
+
+            for problem
+
+ 2/d simple shear, hypoelastic material based on ZJ stress rate, mid-point Eul prescribed displ. 19-10-2023                                                      
+
+
+ Input phase                                          0.00
+
+ Assemblage of linear stiffness matrix and init stress calculation      0.00
+
+ Triangularization of effective linear stiffness matrix      0.00
+
+ Step-by-step solution (20 time steps)
+
+    calculation of load vector                        0.08
+    solution of equations                             0.16
+    calculation and printing of displacements,
+            pore pressure, temperature, stresses      0.15
+
+                               step-by-step total     0.38
+
+
+
+ Total solution time                                  0.38

@@ -1,0 +1,2 @@
+sourceDirectory=C:\docker_folder\PIONER-main\input_data
+targetDirectory=C:\for_ubuntu\PycharmProjects\PIONER\PIONER
