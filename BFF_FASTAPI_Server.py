@@ -182,8 +182,6 @@ def build_select_ui():
     files_name = update_template_list()
     select_out.options = files_name
 
-
-
 @app.post('/run_rpc')
 async def run_rpc(in_file : InputTemplateModel) -> ProcessOutputModel:
 
