@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Request
+from uuid import uuid4
+from fastapi import FastAPI, Request, BackgroundTasks
 from random import randint
 from bokeh.layouts import column, row
 from bokeh.models.widgets import DataTable, TableColumn, Select
@@ -34,6 +35,8 @@ text_input_val = TextInput(value='', title='N:')
 
 g_loc_file = None
 g_loc_file_run = None
+
+jobs = {}
 
 template = lambda gscripts, gdivs: str('''
     <!DOCTYPE html>
@@ -207,6 +210,37 @@ async def run_rpc() -> ProcessOutputModel:
     displacements = ret['displacements']
     stress = ret['stress']
     return ret
+
+def run_background_job(job_id: str, file_run: InputTemplateModel):
+    jobs[job_id] = {'status': 'running'}
+    try:
+        ret = call_rpc('run_pioner', file_run)
+        if 'error' not in ret:
+            jobs[job_id] = {'status': 'completed', 'data': ret}
+            print(f'Job "{job_id}" completed')
+        else:
+            jobs[job_id] = {'status': 'failed', 'error': ret['error']}
+            print(f'Job "{job_id}" failed with error: {ret["error"]}')
+    except Exception as e:
+        jobs[job_id] = {'status': 'failed', 'error': str(e)}
+        print(f'Job "{job_id}" failed with error: {str(e)}')
+
+@api_v1.method(errors=[Error])
+async def run_rpc_background(background_tasks: BackgroundTasks) -> ProcessOutputModel:
+    global g_loc_file_run
+    print(f'starting "{job_id}" job')
+
+    job_id = str(uuid4())
+    background_tasks.add_task(run_background_job, g_loc_file_run)
+    return {'job_id': job_id, 'status': 'running'}
+
+@api_v1.method(errors=[Error])
+async def get_job(job_id: str):
+    print(f'Received get_job request for job_id: {job_id}')
+    if job_id in jobs:
+        return jobs[job_id]
+    else:
+        return {'error': 'job_not_found'}
 
 @app.post('/run', response_class=HTMLResponse)
 async def run():

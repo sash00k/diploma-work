@@ -50,8 +50,8 @@ class mPioner:
         for it in files:
             print(it['fileName'])
 
-    def print_file(self):
-        print(self.loc_file)
+    def print_file(self, outfile):
+        print(self.loc_file, file=outfile)
 
     def modify_file(self, in_N):
         self.loc_file = InputTemplateModel(fileName=self.loc_file['fileName'], N=in_N)
@@ -63,11 +63,12 @@ class mPioner:
         return ret
 
 
-loc_obj = mPioner()
-loc_obj.print_file()
-loc_obj.set_file('bochkarev_template.txt')
-loc_obj.modify_file(f'{f"{-412.2:.3f}":>9}')
-loc_obj.print_file()
-loc_obj.modify_file(200)
-loc_obj.print_file()
+with open('output.txt', 'w') as out:
+    loc_obj = mPioner()
+    # loc_obj.print_file(out)
+    loc_obj.set_file('bochkarev_template.txt')
+    loc_obj.modify_file(f'{f"{-412.2:.3f}":>9}')
+    # loc_obj.print_file(out)
+    # loc_obj.modify_file(200)
+    loc_obj.print_file(out)
 
