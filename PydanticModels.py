@@ -78,15 +78,16 @@ class ProcessOutputModel(BaseModel):
 class InputTemplateModel(BaseModel):
     def modify_params(self):
         cur_str = self.fileContent
-        if (self.repl_keys is not None):
-            for it in self.repl_keys.keys():
-                print('get_att', getattr(self, self.repl_keys[it]))
-                if (it != ''):
-                    self.fileContent = cur_str.replace(it, str(getattr(self, self.repl_keys[it] )))
+        if self.repl_keys is not None:
+            for key in self.repl_keys.keys():
+                print(self.repl_keys)
+                print('get_attr:', getattr(self, self.repl_keys[key]))
+                if key:
+                    self.fileContent = cur_str.replace(key, str(getattr(self, self.repl_keys[key])))
                     cur_str = self.fileContent
 
 
     fileName: str = Body(..., examples=['new_template.txt'])
     fileContent: Union[str, None] = None
-    N: Union[int, None] = None
+    N: Union[int, str, float, None] = None
     repl_keys: Union[Dict[str,str], None] = None

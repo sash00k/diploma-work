@@ -38,10 +38,10 @@ def call_rpc(method: str, rpc_params: BaseModel):
 
 
 class mPioner:
-    def __init__(self):
-        self.getFile('big_input.txt')
+    def __init__(self, name: str = 'big_input.txt'):
+        self.set_file(name)
 
-    def getFile(self, name: str):
+    def set_file(self, name: str):
         self.loc_file = InputTemplateModel(fileName=name)
         self.loc_file = call_rpc('get_content_rpc', self.loc_file)
 
@@ -57,18 +57,16 @@ class mPioner:
         self.loc_file = InputTemplateModel(fileName=self.loc_file['fileName'], N=in_N)
         self.loc_file = call_rpc('modify_file_rpc', self.loc_file)
 
-
-    def mRun(self) -> ProcessOutputModel:
+    def run_solver(self) -> ProcessOutputModel:
         ret = call_rpc('run_rpc', None)
         print(ret)
         return ret
 
 
 loc_obj = mPioner()
-loc_obj.print_all_files()
 loc_obj.print_file()
-loc_obj.getFile('big_input_3.txt')
-loc_obj.modify_file(10)
+loc_obj.set_file('bochkarev_template.txt')
+loc_obj.modify_file(f'{f"{-412.2:.3f}":>9}')
 loc_obj.print_file()
 loc_obj.modify_file(200)
 loc_obj.print_file()
