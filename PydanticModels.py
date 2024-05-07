@@ -23,7 +23,7 @@ class BaseModelWithFileParsing(BaseModel):
 
         try:
             with open(file_path, 'r') as file:
-                next(file)  # Пропускаем заголовок
+                next(file) 
 
                 for line in file:
                     values = [[float(val)] for val in line.split()]
@@ -75,6 +75,9 @@ class ProcessOutputModel(BaseModel):
     failure: Union[Dict[str, List[Failure]], None] = None
 
 class JobModel(BaseModel):
+    class Config:
+        arbitrary_types_allowed = True
+
     job_id: str
     job_status: str
     job_result: Union[ProcessOutputModel, None] = None
