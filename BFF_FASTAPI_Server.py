@@ -98,13 +98,13 @@ callback_button_modify = CustomJS(code='''
     async function put_file(){
     console.log(cur_key, cur_val);
     
-                var obj = {};
-                obj[3] = 'N';
+    var obj = {};
+    obj[cur_key] = 'N';
                 
-     return await fetch('/modify_file', {
+    return await fetch('/modify_file', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ 'fileName': curFileName,  'N' :Number(cur_val), 'repl_keys' : obj })
+        body: JSON.stringify({ 'fileName': curFileName,  'N': cur_val, 'repl_keys': obj })
     }).then((response) => response.json())
 
     }
