@@ -58,17 +58,18 @@ class mPioner:
         self.loc_file = call_rpc('modify_file_rpc', self.loc_file)
 
     def run_solver(self) -> ProcessOutputModel:
-        ret = call_rpc('run_rpc', None)
+        ret = call_rpc('run_rpc_background', None)
         print(ret)
-        return ret
+        # return ret
 
 
 with open('output.txt', 'w') as out:
     loc_obj = mPioner()
     # loc_obj.print_file(out)
     loc_obj.set_file('bochkarev_template.txt')
-    loc_obj.modify_file(f'{f"{-412.2:.3f}":>9}')
+    loc_obj.modify_file(f'{f"{-512.2:.3f}":>9}')
     # loc_obj.print_file(out)
     # loc_obj.modify_file(200)
     loc_obj.print_file(out)
+    loc_obj.run_solver()
 

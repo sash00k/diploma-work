@@ -228,10 +228,11 @@ def run_background_job(job_id: str, file_run: InputTemplateModel):
 @api_v1.method(errors=[Error])
 async def run_rpc_background(background_tasks: BackgroundTasks) -> ProcessOutputModel:
     global g_loc_file_run
+    job_id = str(uuid4())
     print(f'starting "{job_id}" job')
 
     job_id = str(uuid4())
-    background_tasks.add_task(run_background_job, g_loc_file_run)
+    background_tasks.add_task(run_background_job, job_id, g_loc_file_run)
     return {'job_id': job_id, 'status': 'running'}
 
 @api_v1.method(errors=[Error])
