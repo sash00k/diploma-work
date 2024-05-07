@@ -13,14 +13,15 @@ def call_rpc(method: str, rpc_params: BaseModel):
     url = f'http://{rpc_host}:8000/api/v1/jsonrpc'
     headers = {'content-type': 'application/json'}
 
-    loc_json_rpc = {'jsonrpc': '2.0',
-                    'id': '0',
-                    'method': method,
-                    'params': {}
-                    }
+    loc_json_rpc = {
+        'jsonrpc': '2.0',
+        'id': '0',
+        'method': method,
+        'params': {}
+    }
+
     if (rpc_params is not None):
         loc_json_rpc['params'] = {'in_params': rpc_params.dict()}
-
     try:
         response = requests.post(url, data=json.dumps(loc_json_rpc), headers=headers, timeout=1.0)
     except Exception as err:
@@ -34,7 +35,6 @@ def call_rpc(method: str, rpc_params: BaseModel):
             return {'error OK': response['error']}
     else:
         return {'error': response['error']}
-
 
 
 class mPioner:
