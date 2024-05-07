@@ -19,9 +19,10 @@ import requests
 
 load_dotenv(find_dotenv(), override=True)
 
-app = FastAPI()
-
-lhost = os.getenv('HOST_IP')
+app = jsonrpc.API()
+api_v1 = jsonrpc.Entrypoint('/api/v1/jsonrpc')
+rpc_host = os.getenv('RPC_HOST')
+bff_host = os.getenv('BFF_HOST')
 
 file_input = FileInput(name='file_input_bokeh')
 button_run = Button(label='Run', button_type='success')
@@ -137,7 +138,7 @@ def decode_data(in_dat):
 
 def call_rpc(method: str, rpc_params: BaseModel):
 
-    url = f'http://{lhost}:8001/api/v1/jsonrpc'
+    url = f'http://{rpc_host}:8001/api/v1/jsonrpc'
     headers = {'content-type': 'application/json'}
 
     loc_json_rpc = {'jsonrpc': '2.0',
@@ -181,14 +182,12 @@ def build_select_ui():
     files_name = update_template_list()
     select_out.options = files_name
 
-@app.get('/run_rpc')
-async def run_rpc() -> ProcessOutputModel:
-    global g_loc_file_run
-    print('run', g_loc_file_run)
-    if (g_loc_file_run is None):
-        error_txt = PreText(text=str('current file is not exist'), width=500, height=100)  # <pre> file_content</pre>
-        return json.dumps(json_item(error_txt, 'myplot'))
-    ret = call_rpc('run_pioner', g_loc_file_run)
+
+
+@app.post('/run_rpc')
+async def run_rpc(in_file : InputTemplateModel) -> ProcessOutputModel:
+
+    ret = call_rpc('run_pioner', in_file)
     if ('error' in ret):
         error = PreText(text=str(ret['error']), width=500, height=100)  # <pre> file_content</pre>
         return {'error': error}
@@ -196,8 +195,8 @@ async def run_rpc() -> ProcessOutputModel:
     stress = ret['stress']
     return ret
 
-@app.get('/run_rpc', response_class=HTMLResponse)
-async def run_rpc()->ProcessOutputModel:
+@api_v1.method(errors=[Error])
+async def run_rpc() -> ProcessOutputModel:
     global g_loc_file_run
     print('run', g_loc_file_run)
     if (g_loc_file_run is None):
@@ -262,6 +261,33 @@ async def modify_file(in_file: InputTemplateModel):
 
     return json.dumps(json_item(ret_text, 'myplot'))
 
+
+@api_v1.method(errors=[Error])
+async def modify_file_rpc(in_params: InputTemplateModel)->InputTemplateModel:
+    global g_loc_file, g_loc_file_run
+    if (in_params.repl_keys is None):
+        in_params.repl_keys = {'key1':'N'}
+
+    g_loc_file_run = g_loc_file.model_copy()
+    g_loc_file_run.N = in_params.N
+    g_loc_file_run.repl_keys = in_params.repl_keys
+    g_loc_file_run.modify_params()
+    return g_loc_file_run
+
+@api_v1.method(errors=[Error])
+async def get_file_list() -> List[InputTemplateModel]:
+    return call_rpc('get_template_list', None)
+
+@api_v1.method(errors=[Error])
+async def get_content_rpc(in_params: InputTemplateModel) -> InputTemplateModel:
+    global g_loc_file,g_loc_file_run
+    ret = call_rpc('get_content_by_name', in_params)
+    in_params.fileContent = ret['fileContent']
+    g_loc_file = in_params.model_copy()
+    g_loc_file_run = in_params.model_copy()
+
+    return in_params
+
 @app.post('/get_content', response_class=HTMLResponse)
 async def get_content(in_file: InputTemplateModel):
 
@@ -315,5 +341,8 @@ async def read_root(request: Request, inline: bool = True):
 
     return HTMLResponse(template(script+script1+script0+script3+script4+script5, div+div1+div0+div3+div4+div5))
 
+
+app.bind_entrypoint(api_v1)
+
 if __name__ == '__main__':
-    uvicorn.run(app, host=lhost, port=8000, access_log=True)
+    uvicorn.run(app, host=bff_host, port=8000, access_log=True)

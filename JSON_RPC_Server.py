@@ -18,8 +18,7 @@ import re
 import shutil
 
 load_dotenv(find_dotenv(), override=True)
-
-lhost = os.getenv('HOST_IP')
+rpc_host = os.getenv('RPC_HOST')
 
 app = jsonrpc.API()
 api_v1 = jsonrpc.Entrypoint('/api/v1/jsonrpc')
@@ -137,4 +136,4 @@ app.bind_entrypoint(api_v1)
 
 if __name__ == '__main__':
 
-    uvicorn.run(app, host=lhost, port=8001, access_log=True)
+    uvicorn.run(app, host=rpc_host, port=8001, access_log=True)
