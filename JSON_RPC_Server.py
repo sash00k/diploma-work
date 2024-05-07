@@ -1,16 +1,9 @@
-from fastapi import FastAPI, Request
-from datetime import date
-from random import randint
-from pybase64 import b64decode
 from os import listdir
 from os.path import isfile, join
 from PydanticModels import *
 from dotenv import load_dotenv, find_dotenv
 
-import io
-import numpy as np
-import json
-import asyncio
+import sys
 import uvicorn
 import subprocess
 import os
@@ -22,6 +15,7 @@ rpc_host = os.getenv('RPC_HOST')
 
 app = jsonrpc.API()
 api_v1 = jsonrpc.Entrypoint('/api/v1/jsonrpc')
+
 
 async def remove_files_and_folders():
     items_to_remove = [
@@ -45,6 +39,7 @@ async def remove_files_and_folders():
                 pass
         else:
             pass
+
 
 async def process_files_in_folder(folder: str, model_class: type) -> Dict[str, List[BaseModelWithFileParsing]]:
     data = {}
@@ -70,10 +65,14 @@ async def check_file(fileName, status_code):
         raise Error(data={'details': f"The file '{fileName}' was not found", 'status_code': status_code})
     return True
 
+
 async def run_pioner_exe() -> ProcessOutputModel:
     if await check_file('input.txt', 500):
         try:
-            await run_fc_2022initstrss()
+            if sys.platform.startswith('win'):
+                await run_fc_2022initstrss()
+            else:
+                return ProcessOutputModel(displacements={}, stress={})
             displacements_data = await process_files_in_folder('Displacements', Displacements)
             stress_data = await process_files_in_folder('Stress', Stress)
             result = ProcessOutputModel(displacements=displacements_data,stress=stress_data)
@@ -82,6 +81,7 @@ async def run_pioner_exe() -> ProcessOutputModel:
             raise Error(data={'details': f'Error while executing the process: {e}', 'status_code': 501})
         except Exception as e:
             raise Error(data={'details': f'JSON-RPC server error: {e}', 'status_code': 505})
+        
 
 async def run_selected_template(in_file: InputTemplateModel) -> ProcessOutputModel:
     content = in_file.fileContent
@@ -89,35 +89,37 @@ async def run_selected_template(in_file: InputTemplateModel) -> ProcessOutputMod
         output_file.write(content)
     return await run_pioner_exe()
 
+
 def get_template_files() -> List[str]:
     file_path = f'InputTemplates'
     onlyfiles = [f for f in listdir(file_path) if isfile(join(file_path, f))]
     return onlyfiles
 
+
 @api_v1.method(errors=[Error])
 async def save_input_template(in_params: InputTemplateModel) -> bool:
     file_path = f'InputTemplates/{in_params.fileName}'
-    ret = {}
+    result = {}
     try:
-        pass
         with open(file_path, 'w') as file:
             file.write(in_params.fileContent)
-        ret['result'] = True
+        result['result'] = True
     except Exception as e:
         raise Error(data={'details': f'JSON-RPC server error: {e}', 'status_code': 508})
     return True
 
+
 @api_v1.method(errors=[Error])
 async def get_template_list() -> List[InputTemplateModel]:
-    ret = []
+    result = []
     files = get_template_files()
-    for it in files:
-        ret.append(InputTemplateModel(fileName=it))
-    return ret
+    for file in files:
+        result.append(InputTemplateModel(fileName=file))
+    return result
+
 
 @api_v1.method(errors=[Error])
 async def run_pioner(in_params: InputTemplateModel) -> ProcessOutputModel:
-    # print('run', in_params.dict())
     return await run_selected_template(in_params)
 
 
