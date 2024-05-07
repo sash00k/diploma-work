@@ -74,6 +74,11 @@ class ProcessOutputModel(BaseModel):
     stress_rotated: Union[Dict[str, List[Stress]], None] = None
     failure: Union[Dict[str, List[Failure]], None] = None
 
+class JobModel(BaseModel):
+    job_id: str
+    job_status: str
+    job_result: Union[ProcessOutputModel, None] = None
+    job_error: Union[Error, str, None] = None
 
 class InputTemplateModel(BaseModel):
     def modify_params(self):

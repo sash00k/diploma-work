@@ -212,17 +212,21 @@ async def run_rpc() -> ProcessOutputModel:
     return ret
 
 def run_background_job(job_id: str, file_run: InputTemplateModel):
-    jobs[job_id] = {'status': 'running'}
+    job = JobModel(job_id=job_id, job_status='running')
+    jobs[job_id] = job
     try:
         ret = call_rpc('run_pioner', file_run)
         if 'error' not in ret:
-            jobs[job_id] = {'status': 'completed', 'data': ret}
+            job.job_status = 'completed'
+            job.job_result = ret
             print(f'Job "{job_id}" completed')
         else:
-            jobs[job_id] = {'status': 'failed', 'error': ret['error']}
+            job.job_status = 'failed'
+            job.job_error = ret['error']
             print(f'Job "{job_id}" failed with error: {ret["error"]}')
     except Exception as e:
-        jobs[job_id] = {'status': 'failed', 'error': str(e)}
+        job.job_status = 'failed'
+        job.job_error = str(e)
         print(f'Job "{job_id}" failed with error: {str(e)}')
 
 @api_v1.method(errors=[Error])
@@ -239,7 +243,8 @@ async def run_rpc_background(background_tasks: BackgroundTasks) -> ProcessOutput
 async def get_job(job_id: str):
     print(f'Received get_job request for job_id: {job_id}')
     if job_id in jobs:
-        return jobs[job_id]
+        job = jobs[job_id]
+        return job.dict()
     else:
         return {'error': 'job_not_found'}
 
