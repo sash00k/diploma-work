@@ -172,7 +172,7 @@ def merge(dicts):
 def update_template_list()->List[str]:
     ret=[]
     res = call_rpc('get_template_list', None)
-    print(res)
+    # print(res)
     if ('error' not in res):
         for it in res:
             ret.append(it['fileName'])
@@ -196,7 +196,7 @@ async def run_rpc(in_file : InputTemplateModel) -> ProcessOutputModel:
 @api_v1.method(errors=[Error])
 async def run_rpc() -> ProcessOutputModel:
     global g_loc_file_run
-    print('run', g_loc_file_run)
+    # print('run', g_loc_file_run)
     if (g_loc_file_run is None):
         error_txt = PreText(text=str('current file is not exist'), width=500, height=100)  # <pre> file_content</pre>
         return json.dumps(json_item(error_txt, 'myplot'))
@@ -211,7 +211,7 @@ async def run_rpc() -> ProcessOutputModel:
 @app.post('/run', response_class=HTMLResponse)
 async def run():
     global g_loc_file_run
-    print('run', g_loc_file_run)
+    # print('run', g_loc_file_run)
     if (g_loc_file_run is None):
         error_txt = PreText(text=str('current file is not exist'), width=500, height=100)  # <pre> file_content</pre>
         return json.dumps(json_item(error_txt, 'myplot'))

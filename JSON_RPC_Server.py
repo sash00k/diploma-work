@@ -117,7 +117,7 @@ async def get_template_list() -> List[InputTemplateModel]:
 
 @api_v1.method(errors=[Error])
 async def run_pioner(in_params: InputTemplateModel) -> ProcessOutputModel:
-    print('run', in_params.dict())
+    # print('run', in_params.dict())
     return await run_selected_template(in_params)
 
 
