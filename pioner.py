@@ -6,11 +6,11 @@ from PydanticModels import *
 from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv(), override=True)
-rpc_host = os.getenv('RPC_HOST')
+RPC_HOST = os.getenv('RPC_HOST')
 
 
 def call_rpc(method: str, rpc_params: BaseModel):
-    url = f'http://{rpc_host}:8000/api/v1/jsonrpc'
+    url = f'http://{RPC_HOST}:8000/api/v1/jsonrpc'
     headers = {'content-type': 'application/json'}
 
     loc_json_rpc = {
@@ -42,19 +42,19 @@ class mPioner:
         self.set_file(name)
 
     def set_file(self, name: str):
-        self.loc_file = InputTemplateModel(fileName=name)
+        self.loc_file = InputTemplateModel(file_name=name)
         self.loc_file = call_rpc('get_content_rpc', self.loc_file)
 
     def print_all_files(self):
         files = call_rpc('get_file_list', None)
         for it in files:
-            print(it['fileName'])
+            print(it['file_name'])
 
     def print_file(self, outfile):
         print(self.loc_file, file=outfile)
 
     def modify_file(self, in_N):
-        self.loc_file = InputTemplateModel(fileName=self.loc_file['fileName'], N=in_N)
+        self.loc_file = InputTemplateModel(file_name=self.loc_file['file_name'], N=in_N)
         self.loc_file = call_rpc('modify_file_rpc', self.loc_file)
 
     def run_solver(self) -> ProcessOutputModel:

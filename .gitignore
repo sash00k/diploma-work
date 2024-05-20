@@ -3,4 +3,5 @@ __pycache__/
 __pycache__/PydanticModels.cpython-311.pyc
 params.txt
 output.txt
-__pycache__/PydanticModels.cpython-311.pyc
+Displacements/
+Stress/

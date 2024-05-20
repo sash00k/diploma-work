@@ -24,8 +24,8 @@ jobs = {}
 app = jsonrpc.API()
 api_v1 = jsonrpc.Entrypoint('/api/v1/jsonrpc')
 
-rpc_host = os.getenv('RPC_HOST')
-bff_host = os.getenv('BFF_HOST')
+RPC_HOST = os.getenv('RPC_HOST')
+BFF_HOST = os.getenv('BFF_HOST')
 
 file_input = FileInput(name='file_input_bokeh')
 button_run = Button(label='Run', button_type='success')
@@ -79,7 +79,7 @@ callback = CustomJS(args=dict(file_input=file_input), code='''
      return await fetch('/post_content', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ 'fileName': val1, 'fileContent': val2, })
+            body: JSON.stringify({ 'file_name': val1, 'file_content': val2, })
         }).then((response) => response.json())
     }
 ''' + bokeh_print_template + 'window.location.reload();')
@@ -105,7 +105,7 @@ callback_button_modify = CustomJS(code='''
     return await fetch('/modify_file', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ 'fileName': curFileName,  'N': cur_val, 'repl_keys': obj })
+        body: JSON.stringify({ 'file_name': curFileName,  'N': cur_val, 'repl_keys': obj })
     }).then((response) => response.json())
 
     }
@@ -120,7 +120,7 @@ callback_select = CustomJS(code='''
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ 'fileName': curFileName })
+            body: JSON.stringify({ 'file_name': curFileName })
         }).then((response) => response.json())
     }
 ''' + bokeh_print_template)
@@ -139,7 +139,7 @@ def decode_data(in_dat):
 
 
 def call_rpc(method: str, rpc_params: BaseModel):
-    url = f'http://{rpc_host}:8001/api/v1/jsonrpc'
+    url = f'http://{RPC_HOST}:8001/api/v1/jsonrpc'
     headers = {'content-type': 'application/json'}
 
     loc_json_rpc = {
@@ -174,10 +174,10 @@ def merge(dicts):
 
 def update_template_list() -> List[str]:
     result=[]
-    response = call_rpc('get_template_list', None)
+    response = call_rpc('get_results', None)
     if 'error' not in response:
         for it in response:
-            result.append(it['fileName'])
+            result.append(it['file_name'])
     return result
 
 
@@ -206,44 +206,6 @@ async def run_rpc() -> ProcessOutputModel:
         error = PreText(text=str(result['error']), width=500, height=100)
         return json.dumps(json_item(error, 'myplot'))
     return result
-
-
-def run_background_job(job: JobModel, file_run: InputTemplateModel) -> None:
-    jobs[job.id] = job
-    try:
-        result = call_rpc('run_pioner', file_run)
-        if 'error' not in result:
-            job.status = 'completed'
-            job.result = result
-            print(f'job "{job.id}" completed')
-        else:
-            job.status = 'failed'
-            job.error = result['error']
-            print(f'job "{job.id}" failed with error: {result["error"]}')
-    except Exception as e:
-        job.status = 'failed'
-        job.error = str(e)
-        print(f'job "{job.id}" failed with error: {str(e)}')
-
-
-@api_v1.method(errors=[Error])
-async def run_rpc_background(background_tasks: BackgroundTasks) -> JobModel:
-    global g_loc_file_run
-    job_id = str(uuid4())
-    print(f'starting "{job_id}" job')
-    job = JobModel(id=job_id, status='running')
-    background_tasks.add_task(run_background_job, job, g_loc_file_run)
-    return job
-
-
-@api_v1.method(errors=[Error])
-async def get_job(job_id: str):
-    print(f'received get_job request for job_id: {job_id}')
-    if job_id in jobs:
-        job = jobs[job_id]
-        return job.dict()
-    else:
-        return JobModel(id=job_id, status='not_found')
 
 
 @app.post('/run', response_class=HTMLResponse)
@@ -291,7 +253,7 @@ async def modify_file(in_file: InputTemplateModel):
     g_loc_file_run.repl_keys = in_file.repl_keys
     g_loc_file_run.modify_params()
 
-    ret_text = PreText(text=str(g_loc_file_run.fileContent), width=500, height=100)
+    ret_text = PreText(text=str(g_loc_file_run.file_content), width=500, height=100)
     return json.dumps(json_item(ret_text, 'myplot'))
 
 
@@ -317,7 +279,7 @@ async def get_file_list() -> List[InputTemplateModel]:
 async def get_content_rpc(in_params: InputTemplateModel) -> InputTemplateModel:
     global g_loc_file,g_loc_file_run
     result = call_rpc('get_content_by_name', in_params)
-    in_params.fileContent = result['fileContent']
+    in_params.file_content = result['file_content']
     g_loc_file = in_params.model_copy()
     g_loc_file_run = in_params.model_copy()
 
@@ -328,18 +290,18 @@ async def get_content_rpc(in_params: InputTemplateModel) -> InputTemplateModel:
 async def get_content(in_file: InputTemplateModel):
     global g_loc_file,g_loc_file_run
     result = call_rpc('get_content_by_name', in_file)
-    in_file.fileContent = result['fileContent']
+    in_file.file_content = result['file_content']
     g_loc_file = in_file.model_copy()
     g_loc_file_run = in_file.model_copy()
 
-    ret_text = PreText(text=g_loc_file.fileContent, width=500, height=100)  # <pre> file_content</pre>
+    ret_text = PreText(text=g_loc_file.file_content, width=500, height=100)  # <pre> file_content</pre>
     return json.dumps(json_item(ret_text, 'myplot'))
 
 
 @app.post('/post_content', response_class=HTMLResponse)
 async def post_content(in_file: InputTemplateModel):
-    file_content = decode_data(in_file.fileContent)
-    in_file.fileContent = file_content
+    file_content = decode_data(in_file.file_content)
+    in_file.file_content = file_content
 
     result = call_rpc('save_input_template', in_file)
     ncontent = PreText(text=str(result), width=500, height=100)  # <pre> file_content</pre>
@@ -379,4 +341,4 @@ async def read_root(request: Request, inline: bool = True):
 app.bind_entrypoint(api_v1)
 
 if __name__ == '__main__':
-    uvicorn.run(app, host=bff_host, port=8000, access_log=True)
+    uvicorn.run('BFF_FASTAPI_Server:app', host=BFF_HOST, port=8000, access_log=True, reload=True)

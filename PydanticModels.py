@@ -69,35 +69,23 @@ class Failure(BaseModelWithFileParsing):
 
 
 class ProcessOutputModel(BaseModel):
-    displacements: Dict[str, List[Displacements]]
-    stress: Dict[str, List[Stress]]
+    status: str
+    displacements: Dict[str, List[Displacements]] = None
+    stress: Dict[str, List[Stress]] = None
     stress_rotated: Union[Dict[str, List[Stress]], None] = None
     failure: Union[Dict[str, List[Failure]], None] = None
 
 
-class JobModel(BaseModel):
-    class Config:
-        arbitrary_types_allowed = True
-
-    id: str
-    status: str
-    error: Union[Error, str, None] = None
-    result: Union[ProcessOutputModel, None] = None
-
-
 class InputTemplateModel(BaseModel):
+    file_name: str = Body(..., examples=['new_template.txt'])
+    file_content: Optional[str] = None
+    N: Optional[Union[int, str, float]] = None 
+    repl_keys: Optional[Dict[str,str]] = None
+
     def modify_params(self):
-        cur_str = self.fileContent
-        if self.repl_keys is not None:
-            for key in self.repl_keys.keys():
-                print(self.repl_keys)
-                print('get_attr:', getattr(self, self.repl_keys[key]))
+        if self.repl_keys and self.file_content:
+            for key, attr_name in self.repl_keys.items():
                 if key:
-                    self.fileContent = cur_str.replace(key, str(getattr(self, self.repl_keys[key])))
-                    cur_str = self.fileContent
-
-
-    fileName: str = Body(..., examples=['new_template.txt'])
-    fileContent: Union[str, None] = None
-    N: Union[int, str, float, None] = None
-    repl_keys: Union[Dict[str,str], None] = None
+                    value = getattr(self, attr_name, None)
+                    if value is not None:
+                        self.file_content = self.file_content.replace(key, str(value)) 
