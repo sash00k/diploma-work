@@ -102,14 +102,14 @@ class FakeProcess:
         return self._returncode
 
 
-async def run_fc_2022initstrss(background: bool = False):
+async def run_fc_2022initstrss(background: bool = False, executable_file: str = 'FC_2022initStrss_real.exe'):
     global PROCESS
     if sys.platform.startswith('win'):
         await remove_files_and_folders()
         if background:
-            PROCESS = subprocess.Popen(['FC_2022initStrss_real.exe'])
+            PROCESS = subprocess.Popen([executable_file])
         else:
-            PROCESS = subprocess.run(['FC_2022initStrss_real.exe'])
+            PROCESS = subprocess.run([executable_file])
     else:
         # затычка, которая просто "думает", если не может запустить процесс
         PROCESS = FakeProcess(1)

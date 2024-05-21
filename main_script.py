@@ -9,8 +9,8 @@ from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv(), override=True)
 
 
-SLEEP_TIME = 1
-MAX_RUNNING_TIME = 60
+SLEEP_TIME = 5
+MAX_RUNNING_TIME = 10 * 60
 RPC_HOST = os.getenv('RPC_HOST')
 TARGET_DIAPLACEMENT = 0.1
 
@@ -46,7 +46,7 @@ def call_rpc(method: str, rpc_params: BaseModel = None):
 		return {'error': response['error']}
 
 
-def get_target_displacement(result: dict, target_node_id: int = 33):
+def get_target_displacement(result: dict, target_node_id: int = 1):
 	displacements = result['displacements']
 	last_displacements = displacements[max(
 		result['displacements'],
@@ -95,4 +95,4 @@ def background_calc(stress_value: float, sleep_time: int = SLEEP_TIME, max_runni
 
 
 if __name__ == '__main__':
-	background_calc(-400)
+	background_calc(70000)
