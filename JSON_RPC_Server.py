@@ -138,7 +138,6 @@ async def run_selected_template(in_file: InputTemplateModel = None, background: 
         in_file.modify_params()
         with open('input.txt', 'w') as output_file:
             output_file.write(in_file.file_content)
-        print(in_file.file_content)
         
     return await run_pioner_exe(background=background)
 
