@@ -107,9 +107,9 @@ async def run_fc_2022initstrss(background: bool = False):
     if sys.platform.startswith('win'):
         await remove_files_and_folders()
         if background:
-            PROCESS = subprocess.Popen(['FC_2022initStrss.exe'])
+            PROCESS = subprocess.Popen(['FC_2022initStrss_real.exe'])
         else:
-            PROCESS = subprocess.run(['FC_2022initStrss.exe'])
+            PROCESS = subprocess.run(['FC_2022initStrss_real.exe'])
     else:
         # затычка, которая просто "думает", если не может запустить процесс
         PROCESS = FakeProcess(1)
