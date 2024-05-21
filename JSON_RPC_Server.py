@@ -39,6 +39,7 @@ async def remove_files_and_folders():
                 else:
                     shutil.rmtree(item_name)
             except Exception as e:
+                print(e)
                 pass
         else:
             pass
@@ -54,6 +55,7 @@ async def process_files_in_folder(folder: str, model_class: type) -> Dict[str, L
                 data[f'{model_class.__name__}.{file_number}'] = model_class.parse_file(file_path)
         return data
     except Exception as error:
+        print(error)
         raise Error(
             data={'details': f"JSON-RPC server error while reading '{folder}' folder:\n{error}", 'status_code': 502})
 
@@ -123,8 +125,10 @@ async def run_pioner_exe(background: bool = False) -> ProcessOutputModel:
             await run_fc_2022initstrss(background=background)
             return await get_process_results()
         except subprocess.CalledProcessError as e:
+            print(e)
             raise Error(data={'details': f'Error while executing the process: {e}', 'status_code': 501})
         except Exception as e:
+            print(e)
             raise Error(data={'details': f'JSON-RPC server error: {e}', 'status_code': 505})
 
 
@@ -158,6 +162,7 @@ async def save_input_template(in_params: InputTemplateModel) -> bool:
             file.write(in_params.file_content)
         result['result'] = True
     except Exception as e:
+        print(e)
         raise Error(data={'details': f'JSON-RPC server error: {e}', 'status_code': 508})
     return True
 
@@ -206,6 +211,7 @@ async def get_content_by_name(in_params: InputTemplateModel) -> InputTemplateMod
             with open(f'InputTemplates/{in_params.file_name}', 'r') as file:
                 content = file.read()
         except Exception as e:
+            print(e)
             raise Error(data={'details': f'JSON-RPC get_content_by_name error: {e}', 'status_code': 509})
     return InputTemplateModel(file_name=in_params.file_name, file_content=content)
 

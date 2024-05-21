@@ -61,14 +61,16 @@ def background_calc(stress_value: float, sleep_time: int = SLEEP_TIME, max_runni
 	print(f'Calculation for stress = {stress_value} started')
 	t0 = time.time()
 
-	process_status = call_rpc(
+	result = call_rpc(
 		'run_pioner_bg', 
 		InputTemplateModel(
 			file_name='bochkarev_template.txt', 
 			repl_keys={'key1': 'N'},
 			N = format_value(stress_value), 
 		)
-	)['status']
+	)
+	print(result)
+	process_status = result['status']
 	print(f'  {process_status} – {round(time.time() - t0, 2)} s.')
 
 	while True:
