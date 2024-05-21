@@ -81,11 +81,10 @@ async def get_process_status() -> str:
     
 
 async def get_process_results() -> ProcessOutputModel:
-    match status := await get_process_status():
-        case 'finished':
-            return await get_process_ready_results()
-        case _:
-            return ProcessOutputModel(status=status)
+    if (status := await get_process_status()) == 'finished':
+        return await get_process_ready_results()
+    else:
+        return ProcessOutputModel(status=status)
 
 
 class FakeProcess:
