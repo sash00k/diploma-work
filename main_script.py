@@ -9,8 +9,8 @@ from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv(), override=True)
 
 
-SLEEP_TIME = 5
-MAX_RUNNING_TIME = 10 * 60
+SLEEP_TIME = 1
+MAX_RUNNING_TIME = 20 * 60
 RPC_HOST = os.getenv('RPC_HOST')
 TARGET_DIAPLACEMENT = 0.1
 
@@ -57,19 +57,18 @@ def get_target_displacement(result: dict, target_node_id: int = 1):
 			return node_data['v'][0]
 
 
-def background_calc(stress_value: float, sleep_time: int = SLEEP_TIME, max_running_time: int = MAX_RUNNING_TIME):
-	print(f'Calculation for stress = {stress_value} started')
+def background_calc(stress_value: float, input_postfix: str = 'defalut', sleep_time: int = SLEEP_TIME, max_running_time: int = MAX_RUNNING_TIME):
+	print(f'\nCalculation for stress = {stress_value} started, file: bochkarev_{input_postfix}.txt')
 	t0 = time.time()
 
 	result = call_rpc(
 		'run_pioner_bg', 
 		InputTemplateModel(
-			file_name='bochkarev_template.txt', 
+			file_name=f'bochkarev_{input_postfix}.txt', 
 			repl_keys={'key1': 'N'},
 			N = format_value(stress_value), 
 		)
 	)
-	print(result)
 	process_status = result['status']
 	print(f'  {process_status} – {round(time.time() - t0, 2)} s.')
 
@@ -78,21 +77,27 @@ def background_calc(stress_value: float, sleep_time: int = SLEEP_TIME, max_runni
 			print('  Process timeout')
 			break
 		time.sleep(sleep_time)
+		taken_time = time.time() - t0
 		result = call_rpc('get_bg_process_results')
-		process_status = result['status']
+		process_status = result.get('status', 'error')
 		print(f'  {process_status} – {round(time.time() - t0, 2)} s.')
-		if process_status == 'finished':
+		if process_status in ('finished', 'error'):
 			break
 	call_rpc('clear_bg_process_results')
 
-	diplacement_value = get_target_displacement(result, target_node_id=4)
-	print(f'Calculation for stress = {stress_value} finished with displacement = {round(diplacement_value, 3)}')
+	if process_status == 'finished':
+		diplacement_value = get_target_displacement(result, target_node_id=4)
+		print(f'Calculation for stress = {stress_value} finished with displacement = {round(diplacement_value, 3)}')
+	else:
+		diplacement_value = None
+		print(f'Calculation for stress = {stress_value} finished with error')
 	
-	with open('culculations_cache.txt', 'a') as f:
-		f.write(f'{stress_value} {diplacement_value}\n')
+	with open(f'culculations_cache/{input_postfix}.txt', 'a') as f:
+		f.write(f'{stress_value}\t{diplacement_value}\t{taken_time}\n')
 
 	return diplacement_value
 
 
 if __name__ == '__main__':
-	background_calc(70000)
+	for stress in range(0, -1200, -20):
+		background_calc(stress, input_postfix='default')
